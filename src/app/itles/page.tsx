@@ -598,7 +598,7 @@ function ArticleReader({ article }: { article: Article }) {
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch">
           <section className="min-w-0 flex-[7]">
-            <header className="mb-7 space-y-3">
+            <header className="mb-7 space-y-3 pl-2">
               <p className="text-sm font-medium text-muted-foreground">
                 {article.level} / Lesson {article.lesson}
               </p>
