@@ -381,6 +381,7 @@ function IeltsArticleList() {
 }
 
 function ArticleReader({ article }: { article: Article }) {
+  const isIelts = article.level === "IELTS16";
   const articleParagraphs = useMemo(() => getArticleParagraphs(article), [article]);
   const paragraphStarts = useMemo(
     () => buildParagraphStarts(articleParagraphs),
@@ -629,7 +630,7 @@ function ArticleReader({ article }: { article: Article }) {
                             highlights,
                           )}
                         </p>
-                        {articleParagraphTranslations[index] ? (
+                        {isIelts && articleParagraphTranslations[index] ? (
                           <p
                             data-selection-offset-excluded="true"
                             className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
@@ -639,6 +640,32 @@ function ArticleReader({ article }: { article: Article }) {
                         ) : null}
                       </div>
                     ))}
+                    {!isIelts && articleParagraphTranslations.some(Boolean) && (
+                      <div className="mt-10 border-t pt-6">
+                        <h2 className="mb-4 text-lg font-semibold text-foreground">参考译文</h2>
+                        {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
+                          <p
+                            key={i}
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
+                          >
+                            {trans}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                    {!isIelts && article.notesOnText?.length ? (
+                      <div className="mt-10 border-t pt-6">
+                        <h2 className="mb-4 text-lg font-semibold text-foreground">课文注释</h2>
+                        <div className="space-y-3">
+                          {article.notesOnText.map((note, i) => (
+                            <div key={i} className="rounded-md bg-muted/50 px-4 py-3">
+                              <p className="text-sm font-medium text-foreground">{note.title}</p>
+                              <p className="mt-1 text-sm text-muted-foreground">{note.body}</p>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </article>
               </ContextMenuTrigger>
