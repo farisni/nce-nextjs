@@ -61,6 +61,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GooeyInput } from "@/components/ui/gooey-input";
 import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
+import { ShineBorder } from "@/components/ui/shine-border";
 
 const LEVEL_ROUTES: Record<string, string> = {
   NCE2: "/nec2",
@@ -385,7 +386,7 @@ function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
       <section className="mx-auto flex w-full max-w-3xl flex-col gap-3">
         <div className="flex items-center gap-3 pb-1">
           <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
-          <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-7 text-xs", filterWrap: "h-7", bubble: "size-7", bubbleSurface: "size-7 [&>svg]:size-3" }} />
+          <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
         </div>
         <div className="h-px w-4/5 bg-border" />
 
@@ -955,10 +956,12 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
 
         {isChatOpen ? (
           <form
-            className="fixed z-50 flex h-11 w-[min(360px,calc(100vw-2rem))] items-center gap-1.5 rounded-full border bg-popover px-2.5 text-popover-foreground shadow-lg"
+            className="fixed z-50 flex h-11 w-[min(360px,calc(100vw-2rem))] items-center rounded-full bg-popover text-popover-foreground shadow-lg"
             style={{ left: chatPosition.x, top: chatPosition.y }}
             onSubmit={sendChatMessage}
           >
+            <ShineBorder shineColor={["#ef4444", "#eab308", "#3b82f6"]} borderWidth={2} />
+            <div className="relative z-10 flex h-full w-full items-center gap-1.5 rounded-full bg-popover px-2.5">
             <Bot className="size-4 shrink-0 text-muted-foreground" />
             <input
               value={chatInput}
@@ -984,6 +987,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
             <Button type="submit" size="icon" className="size-6 rounded-full p-0" aria-label="Send AI prompt">
               <Send className="size-3.5 -translate-x-px translate-y-px" />
             </Button>
+            </div>
           </form>
         ) : null}
       </div>
