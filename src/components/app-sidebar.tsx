@@ -69,6 +69,7 @@ export function AppSidebar() {
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
           <span className="text-lg font-semibold">NCE BOOK</span>
+          <span className="text-[0.65rem] font-mono text-foreground/40 tracking-[0.15em] border border-foreground/15 rounded px-1 py-px">SNAKE</span>
         </div>
       </Sidebar001Header>
 
