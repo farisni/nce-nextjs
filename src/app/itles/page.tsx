@@ -602,7 +602,7 @@ function ArticleReader({ article }: { article: Article }) {
               <p className="text-sm font-medium text-muted-foreground">
                 {article.level} / Lesson {article.lesson}
               </p>
-              <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance pl-2">
+              <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance pl-4">
                 {article.title}
                 <span className="text-xl font-normal text-muted-foreground">
                   {article.titleCn}
