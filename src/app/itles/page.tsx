@@ -584,7 +584,7 @@ function ArticleReader({ article }: { article: Article }) {
   return (
     <main className="min-h-svh bg-background">
       <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-8 px-5 py-6 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 border-b pb-4">
+        <div className="flex items-center justify-between gap-4 pb-4 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_20%,var(--border)_80%,transparent)]">
           <Button variant="outline" size="sm" asChild>
             <Link href="/itles">
               <ArrowLeft />
