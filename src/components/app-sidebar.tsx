@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { BookOpen, BookMarked, Library, Globe } from "lucide-react";
 import {
   Sidebar001,
   Sidebar001Header,
@@ -13,6 +14,7 @@ import { nce2List, nce3List, nce4List, ieltsList } from "@/app/mock";
 const navGroups = [
   {
     label: "NCE2",
+    icon: BookOpen,
     defaultOpen: false,
     items: nce2List.map((a) => ({
       id: a.id,
@@ -22,6 +24,7 @@ const navGroups = [
   },
   {
     label: "NCE3",
+    icon: BookMarked,
     defaultOpen: false,
     items: nce3List.map((a) => ({
       id: a.id,
@@ -31,6 +34,7 @@ const navGroups = [
   },
   {
     label: "NCE4",
+    icon: Library,
     defaultOpen: true,
     items: nce4List.map((a) => ({
       id: a.id,
@@ -40,6 +44,7 @@ const navGroups = [
   },
   {
     label: "IELTS",
+    icon: Globe,
     defaultOpen: false,
     items: ieltsList.map((a) => ({
       id: a.id,
@@ -68,6 +73,7 @@ export function AppSidebar() {
           <Sidebar001Group
             key={group.label}
             label={group.label}
+            icon={group.icon ? <group.icon className="size-3.5" /> : undefined}
             defaultOpen={group.defaultOpen}
           >
             {group.items.map((item) => (
