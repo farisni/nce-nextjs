@@ -85,11 +85,7 @@ export function AppSidebar() {
         ))}
       </Sidebar001Content>
 
-      <Sidebar001Footer>
-        <div className="px-3 py-2 text-xs text-foreground/30">
-          NCE Reading
-        </div>
-      </Sidebar001Footer>
+
     </Sidebar001>
   );
 }
