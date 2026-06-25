@@ -72,7 +72,7 @@ export function AppSidebar() {
         </div>
       </Sidebar001Header>
 
-      <Sidebar001Content>
+      <Sidebar001Content className="pl-2">
         {navGroups.map((group) => (
           <Sidebar001Group
             key={group.label}
