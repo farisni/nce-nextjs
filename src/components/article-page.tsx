@@ -62,6 +62,7 @@ import { Separator } from "@/components/ui/separator";
 import { GooeyInput } from "@/components/ui/gooey-input";
 import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
+import { ThinkingIndicator } from "@/components/ui/thinking-indicator";
 import { TextHighlight } from "@/components/text-highlight";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { ShineBorder } from "@/components/ui/shine-border";
@@ -967,7 +968,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
           >
             <ShineBorder shineColor={["var(--tone-1-strong)", "var(--tone-3-strong)", "var(--tone-4-strong)"]} borderWidth={2} />
             <div className="relative flex h-full w-full items-center gap-1.5 rounded-full bg-popover px-2.5">
-            <Bot className="size-4 shrink-0 text-muted-foreground" />
+            <ThinkingIndicator showIcon={false} className="px-0 py-0 gap-1 text-muted-foreground [&>span]:text-xs" />
             <input
               value={chatInput}
               onChange={(event) => setChatInput(event.target.value)}

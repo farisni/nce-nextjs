@@ -51,14 +51,22 @@ const navGroups = [
   {
     label: "IELTS",
     icon: Globe,
-    count: ieltsList.length,
+    count: ieltsList.length + 1,
     defaultOpen: false,
-    items: ieltsList.map((a) => ({
-      id: a.id,
-      isNew: a.keyArticle,
-      label: a.title,
-      route: "/itles",
-    })),
+    items: [
+      {
+        id: "vocabulary",
+        isNew: true,
+        label: "Vocabulary",
+        route: "/vocabulary",
+      },
+      ...ieltsList.map((a) => ({
+        id: a.id,
+        isNew: a.keyArticle,
+        label: a.title,
+        route: "/itles",
+      })),
+    ],
   },
 ];
 
@@ -88,11 +96,14 @@ export function AppSidebar() {
             {group.items.map((item) => (
               <Sidebar001Item
                 key={item.id}
-                href={`${item.route}?article=${item.id}`}
+                href={item.route + (item.id === "vocabulary" ? "" : `?article=${item.id}`)}
                 isNew={item.isNew}
                 label={item.label}
-                isActive={activeArticleId === item.id}
-                onClick={(e) => { e.preventDefault(); router.push(`${item.route}?article=${item.id}`); }}
+                isActive={activeArticleId === item.id || (item.id === "vocabulary" && pathname === item.route)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  router.push(item.route + (item.id === "vocabulary" ? "" : `?article=${item.id}`));
+                }}
               />
             ))}
           </Sidebar001Group>
