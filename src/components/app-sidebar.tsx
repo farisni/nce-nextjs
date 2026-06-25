@@ -72,7 +72,7 @@ export function AppSidebar() {
     <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360} className="md:h-svh md:sticky md:top-0">
       <Sidebar001Header>
         <div className="flex items-center gap-2 ">
-          <span className="text-2xl font-bold"><span className="text-red-500">N</span><span className="text-yellow-500">C</span><span className="text-blue-500">E</span> BOOK</span>
+          <span className="text-2xl font-bold"><span className="text-red-400">N</span><span className="text-yellow-300">C</span><span className="text-blue-400">E</span> BOOK</span>
         </div>
       </Sidebar001Header>
 
