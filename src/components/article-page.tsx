@@ -59,6 +59,8 @@ import {
 } from "@/components/ui/context-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { GooeyInput } from "@/components/ui/gooey-input";
+import { useArticleSettings } from "@/stores/article-settings";
+import FlipClock from "@/components/8starlabs-ui/flip-clock";
 
 const LEVEL_ROUTES: Record<string, string> = {
   NCE2: "/nec2",
@@ -439,9 +441,9 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
   const paragraphRefs = useRef<Array<HTMLParagraphElement | null>>([]);
   const grammarSummaryRef = useRef<HTMLDivElement>(null);
   const [selectionState, setSelectionState] = useState<ArticleSelectionState | null>(null);
-  const [highlightsByArticleId, setHighlightsByArticleId] = useState<
-    Record<string, HighlightRange[]>
-  >({});
+  const highlightsByArticleId = useArticleSettings((s) => s.highlightsByArticleId);
+  const addHighlight = useArticleSettings((s) => s.addHighlight);
+  const clearHighlights = useArticleSettings((s) => s.clearHighlights);
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [chatPosition, setChatPosition] = useState({ x: 24, y: 24 });
   const [chatContext, setChatContext] = useState("");
@@ -451,8 +453,10 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
   const [grammarSummaryBlockMetrics, setGrammarSummaryBlockMetrics] = useState<
     Record<number, GrammarSummaryBlockMetric>
   >({});
-  const [showNotes, setShowNotes] = useState(true);
-  const [citationStyle, setCitationStyle] = useState("mla");
+  const showNotes = useArticleSettings((s) => s.showNotes);
+  const setShowNotes = useArticleSettings((s) => s.setShowNotes);
+  const citationStyle = useArticleSettings((s) => s.citationStyle);
+  const setCitationStyle = useArticleSettings((s) => s.setCitationStyle);
   const [lastAction, setLastAction] = useState("No selection action yet.");
 
   const hasGrammarSummary = grammarSummaryGroups.length > 0;
@@ -578,13 +582,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
       return;
     }
 
-    setHighlightsByArticleId((currentHighlightsByArticleId) => ({
-      ...currentHighlightsByArticleId,
-      [article.id]: mergeHighlights([
-        ...(currentHighlightsByArticleId[article.id] ?? []),
-        { start: selection.start, end: selection.end },
-      ]),
-    }));
+    addHighlight(article.id, { start: selection.start, end: selection.end });
     setLastAction(`Highlighted: "${selectionPreview}"`);
     window.getSelection()?.removeAllRanges();
   }
@@ -769,10 +767,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                 <ContextMenuItem
                   disabled={highlights.length === 0}
                   onSelect={() => {
-                    setHighlightsByArticleId((currentHighlightsByArticleId) => ({
-                      ...currentHighlightsByArticleId,
-                      [article.id]: [],
-                    }));
+                    clearHighlights(article.id);
                     setLastAction("Cleared all highlights.");
                   }}
                 >
@@ -796,8 +791,11 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
 
           <div className="hidden w-px shrink-0 bg-[linear-gradient(to_bottom,transparent,var(--border)_15%,var(--border)_85%,transparent)] lg:block" />
 
-          <aside className="min-w-0 flex-[3] space-y-7 lg:pt-[76px]">
-            <section className="space-y-4">
+          <aside className="min-w-0 flex-[3] space-y-7">
+            <div className="flex justify-start lg:pt-4">
+              <FlipClock size="sm" variant="outline" className="scale-75 origin-top-left ml-2" />
+            </div>
+            <section className="space-y-4 lg:pt-0">
               <Tabs
                 value={visibleActiveSideTab}
                 onValueChange={(value) => setActiveSideTab(value as "grammar" | "vocabulary")}
