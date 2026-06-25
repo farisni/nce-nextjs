@@ -64,7 +64,7 @@ export function AppSidebar() {
     <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360}>
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
-          <span className="text-lg font-semibold">NCE</span>
+          <span className="text-lg font-semibold">NCE BOOK</span>
         </div>
       </Sidebar001Header>
 
