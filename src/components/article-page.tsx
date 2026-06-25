@@ -58,6 +58,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import { GooeyInput } from "@/components/ui/gooey-input";
 import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
@@ -342,7 +343,7 @@ function renderHighlightedText(
     parts.push(
       <mark
         key={`mark-${paragraphStart}-${index}`}
-        className="rounded-sm bg-yellow-200 px-0.5 text-yellow-950"
+        className="rounded-sm bg-[var(--tone-2)] px-0.5 text-foreground"
       >
         {text.slice(start, end)}
       </mark>,
@@ -389,19 +390,19 @@ function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
           <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
           <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
         </div>
-        <div className="h-px w-4/5 bg-border" />
+        <Separator className="w-4/5" />
 
         <div>
           {articles.map((article, index) => (
             <Fragment key={article.id}>
               {index > 0 && (
-                <div className="h-px w-3/5 bg-border" />
+                <Separator className="w-3/5" />
               )}
               <Link
                 href={`${LEVEL_ROUTES[article.level] ?? "/itles"}?article=${article.id}`}
                 className="group flex items-start justify-between gap-5 py-1 transition-colors hover:text-primary"
               >
-                <div className="min-w-0 space-y-1">
+                <div className="min-w-0 flex flex-col gap-1">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
                     <h2 className="text-base font-medium text-foreground group-hover:text-primary">
                       {article.title}
@@ -635,7 +636,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                 Lesson {article.lesson}
               </Button>
             </div>
-            <header className="mb-6 mt-4 space-y-3">
+            <header className="mb-6 mt-4 flex flex-col gap-3">
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
@@ -664,9 +665,9 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                   onContextMenu={syncContextMenu}
                   onMouseUp={syncSelection}
                 >
-                  <div ref={articleBodyRef} className="space-y-7">
+                  <div ref={articleBodyRef} className="flex flex-col gap-7">
                     {articleParagraphs.map((paragraph, index) => (
-                      <div key={paragraphStarts[index]} className="space-y-2">
+                      <div key={paragraphStarts[index]} className="flex flex-col gap-2">
                         <p
                           ref={(element) => {
                             paragraphRefs.current[index] = element;
@@ -791,9 +792,9 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
             </ContextMenu>
           </section>
 
-          <div className="hidden w-px shrink-0 bg-[linear-gradient(to_bottom,transparent,var(--border)_15%,var(--border)_85%,transparent)] lg:block" />
+          <Separator orientation="vertical" className="hidden lg:block bg-[linear-gradient(to_bottom,transparent,var(--border)_15%,var(--border)_85%,transparent)]" />
 
-          <aside className="min-w-0 flex-[3] space-y-7">
+          <aside className="min-w-0 flex-[3] flex flex-col gap-7">
             <div className="flex justify-start lg:pt-4">
               <FlipClock size="sm" variant="outline" className="scale-75 origin-top-left ml-2" />
             </div>
@@ -855,7 +856,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                             <div
                               className={
                                 "relative box-border overflow-visible pl-[13px] before:absolute before:top-0 before:bottom-0 before:left-0 before:w-[3px] before:rounded-full before:bg-[var(--grammar-mark-color)] before:content-[''] " +
-                                (isExpanded ? "z-10 bg-background" : "")
+                                (isExpanded ? "bg-background" : "")
                               }
                               style={GRAMMAR_TONE_STYLES[group.tone]}
                             >
@@ -957,12 +958,12 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
 
         {isChatOpen ? (
           <form
-            className="fixed z-50 flex h-11 w-[min(360px,calc(100vw-2rem))] items-center rounded-full bg-popover text-popover-foreground shadow-lg"
+            className="fixed flex h-11 w-[min(360px,calc(100vw-2rem))] items-center rounded-full bg-popover text-popover-foreground shadow-lg"
             style={{ left: chatPosition.x, top: chatPosition.y }}
             onSubmit={sendChatMessage}
           >
-            <ShineBorder shineColor={["#ef4444", "#eab308", "#3b82f6"]} borderWidth={2} />
-            <div className="relative z-10 flex h-full w-full items-center gap-1.5 rounded-full bg-popover px-2.5">
+            <ShineBorder shineColor={["var(--tone-1-strong)", "var(--tone-3-strong)", "var(--tone-4-strong)"]} borderWidth={2} />
+            <div className="relative flex h-full w-full items-center gap-1.5 rounded-full bg-popover px-2.5">
             <Bot className="size-4 shrink-0 text-muted-foreground" />
             <input
               value={chatInput}
