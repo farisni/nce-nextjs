@@ -624,7 +624,7 @@ function ArticleReader({ article }: { article: Article }) {
                           ref={(element) => {
                             paragraphRefs.current[index] = element;
                           }}
-                          className="text-[1.05rem] leading-9 text-foreground [text-indent:2em]"
+                          className="text-[1.15rem] leading-[2] text-foreground [text-indent:2em]"
                         >
                           {renderHighlightedText(
                             paragraph,
