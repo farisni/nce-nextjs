@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Separator } from "@/components/ui/separator";
 import "./globals.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 import { AppSidebar } from "@/components/app-sidebar";
 
@@ -21,13 +21,14 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="min-h-full">
+        <TooltipProvider>
         <div className="flex h-svh flex-col bg-background text-foreground md:flex-row">
           <Suspense fallback={null}>
             <AppSidebar />
           </Suspense>
-          <Separator orientation="vertical" className="h-svh" />
           <main className="min-w-0 flex-1 overflow-y-auto ">{children}</main>
         </div>
+      </TooltipProvider>
       </body>
     </html>
   );

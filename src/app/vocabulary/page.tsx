@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, Fragment } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import {
   Table,
   TableBody,
@@ -10,10 +10,66 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { vocabChapters, type VocabWord } from "@/app/mock/vocabulary";
-import { Badge } from "@/components/ui/badge";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Check, ChevronsUpDown } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
+function MeaningCell({ word }: { word: VocabWord }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  const check = useCallback(() => {
+    if (ref.current) {
+      setIsTruncated(ref.current.scrollWidth > ref.current.clientWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, [check]);
+
+  const content = (
+    <div ref={ref} className="truncate max-w-full">
+      <span className="text-muted-foreground">
+        {word.partOfSpeech}
+      </span>{" "}
+      {word.chinese}
+    </div>
+  );
+
+  if (!isTruncated) return content;
+
+  return (
+    <Tooltip>
+      <TooltipTrigger asChild>{content}</TooltipTrigger>
+      <TooltipContent side="top" className="max-w-xs">
+        <p className="text-sm">{word.chinese}</p>
+      </TooltipContent>
+    </Tooltip>
+  );
+}
 
 export default function VocabularyPage() {
-  const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [chapter, setChapter] = useState(vocabChapters[0]?.title ?? "");
 
   const currentChapter = vocabChapters.find((c) => c.title === chapter);
@@ -21,85 +77,87 @@ export default function VocabularyPage() {
     ? currentChapter.groups.flat()
     : vocabChapters.flatMap((c) => c.groups.flat());
 
-  const toggle = (id: number) => {
-    setExpandedIds((prev) => {
-      const next = new Set(prev);
-      next.has(id) ? next.delete(id) : next.add(id);
-      return next;
-    });
-  };
-
   return (
     <main className="min-h-svh px-6 py-10">
-      <section className="mx-auto w-full max-w-5xl">
+      <section className="mx-auto w-full max-w-4xl">
         <h1 className="mb-6 text-2xl font-bold">IELTS Vocabulary</h1>
 
-        <div className="mb-6 flex flex-wrap gap-1.5">
-          {vocabChapters.map((ch) => (
-            <Badge
-              key={ch.title}
-              color={chapter === ch.title ? "blue" : "gray"}
-              variant="dot"
-              size="sm"
-              className="cursor-pointer"
-              onClick={() => setChapter(ch.title)}
-            >
-              {ch.title}
-            </Badge>
-          ))}
+        <div className="mb-4 flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            {words.length} words
+          </p>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                role="combobox"
+                className="w-[220px] justify-between"
+              >
+                {chapter || "选择章节..."}
+                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-[220px] p-0">
+              <Command>
+                <CommandInput placeholder="搜索章节..." />
+                <CommandList>
+                  <CommandEmpty>未找到</CommandEmpty>
+                  <CommandGroup>
+                    {vocabChapters.map((ch) => (
+                      <CommandItem
+                        key={ch.title}
+                        value={ch.title}
+                        onSelect={() => setChapter(ch.title)}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            chapter === ch.title ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        {ch.title}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
 
-        <p className="mb-4 text-sm text-muted-foreground">
-          {words.length} words
-        </p>
-
-        <Table>
+        <Table className="table-fixed [&_tr]:border-b-[0.5px]">
+          <colgroup>
+            <col style={{ width: 20 }} />
+            <col style={{ width: 70 }} />
+            <col style={{ width: 110 }} />
+            <col style={{ width: 120 }} />
+          </colgroup>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-12">#</TableHead>
-              <TableHead className="w-48">Word</TableHead>
-              <TableHead className="w-56">Meaning</TableHead>
+              <TableHead>#</TableHead>
+              <TableHead>Word</TableHead>
+              <TableHead>Meaning</TableHead>
               <TableHead>Example</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {words.map((word, index) => {
-              const isExpanded = expandedIds.has(word.id);
-              return (
-                <Fragment key={word.id}>
-                  <TableRow
-                    className="cursor-pointer select-none"
-                    style={{
-                      borderLeft: `4px solid var(--vocab-color-${word.colorIndex})`,
-                    }}
-                    onClick={() => toggle(word.id)}
-                  >
-                    <TableCell className="text-muted-foreground">
-                      {index + 1}
-                    </TableCell>
-                    <TableCell className="font-medium">{word.word}</TableCell>
-                    <TableCell>
-                      <span className="text-muted-foreground">
-                        {word.partOfSpeech}
-                      </span>{" "}
-                      {word.chinese}
-                    </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {word.example}
-                    </TableCell>
-                  </TableRow>
-                  {isExpanded && (
-                    <TableRow>
-                      <TableCell colSpan={4} className="bg-muted/30 py-3">
-                        <div className="pl-28 text-sm text-muted-foreground">
-                          {word.example}
-                        </div>
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </Fragment>
-              );
-            })}
+            {words.map((word, index) => (
+              <TableRow
+                key={word.id}
+                style={{
+                  borderLeft: `4px solid var(--vocab-color-${word.colorIndex})`,
+                }}
+              >
+                <TableCell className="text-muted-foreground">
+                  {index + 1}
+                </TableCell>
+                <TableCell className="font-medium">{word.word}</TableCell>
+                <MeaningCell word={word} />
+                <TableCell className="text-muted-foreground">
+                  {word.example}
+                </TableCell>
+              </TableRow>
+            ))}
           </TableBody>
         </Table>
       </section>

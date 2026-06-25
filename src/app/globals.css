@@ -228,10 +228,10 @@
 }
 /* ─── Vocabulary group colors (brighter) ──────────────────────────────────────── */
 :root {
-  --vocab-color-0: #e57c00;
-  --vocab-color-1: #9b59b6;
-  --vocab-color-2: #e5b300;
-  --vocab-color-3: #3498db;
-  --vocab-color-4: #e74c3c;
-  --vocab-color-5: #2ecc71;
+  --vocab-color-0: #e03e3e;
+  --vocab-color-1: #f2994a;
+  --vocab-color-2: #f2c94c;
+  --vocab-color-3: #2f80ed;
+  --vocab-color-4: #9b51e0;
+  --vocab-color-5: #219653;
 }
