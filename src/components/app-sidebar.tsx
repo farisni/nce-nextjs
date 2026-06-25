@@ -15,6 +15,7 @@ const navGroups = [
   {
     label: "NCE2",
     icon: BookOpen,
+    count: nce2List.length,
     defaultOpen: false,
     items: nce2List.map((a) => ({
       id: a.id,
@@ -25,6 +26,7 @@ const navGroups = [
   {
     label: "NCE3",
     icon: BookMarked,
+    count: nce3List.length,
     defaultOpen: false,
     items: nce3List.map((a) => ({
       id: a.id,
@@ -35,6 +37,7 @@ const navGroups = [
   {
     label: "NCE4",
     icon: Library,
+    count: nce4List.length,
     defaultOpen: true,
     items: nce4List.map((a) => ({
       id: a.id,
@@ -45,6 +48,7 @@ const navGroups = [
   {
     label: "IELTS",
     icon: Globe,
+    count: ieltsList.length,
     defaultOpen: false,
     items: ieltsList.map((a) => ({
       id: a.id,
@@ -72,7 +76,7 @@ export function AppSidebar() {
         {navGroups.map((group) => (
           <Sidebar001Group
             key={group.label}
-            label={group.label}
+            label={<>{group.label} <span className="ml-1 text-xs text-foreground/30">({group.count})</span></>}
             icon={group.icon ? <group.icon className="size-3.5" /> : undefined}
             defaultOpen={group.defaultOpen}
             showChevron={false}
