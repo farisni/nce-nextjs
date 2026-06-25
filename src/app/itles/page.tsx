@@ -827,7 +827,7 @@ function ArticleReader({ article }: { article: Article }) {
                                     }}
                                     className="flex flex-col gap-1 border-b py-[7px] last:border-b-0"
                                   >
-                                    <span className="w-fit rounded-md bg-[var(--grammar-title-bg)] px-1.5 py-px text-[0.85rem] font-medium text-foreground">
+                                    <span className="w-fit rounded-md bg-[var(--grammar-title-bg)] px-1.5 py-px text-[0.85rem] font-normal text-foreground">
                                       {note.title}
                                     </span>
                                     <p className="text-[0.82rem] leading-[1.65] text-muted-foreground">
@@ -851,7 +851,7 @@ function ArticleReader({ article }: { article: Article }) {
                                       <div className="mt-2 flex max-h-[520px] flex-col gap-2 overflow-hidden rounded-md bg-muted/50 px-2.5 py-2">
                                         {note.relatedExamples?.map((example, exampleIndex) => (
                                           <div key={`${example.source}-${exampleIndex}`} className="flex flex-col gap-1">
-                                            <span className="w-fit rounded-sm bg-[var(--grammar-title-bg)] px-1.5 py-px text-xs font-medium text-foreground">
+                                            <span className="w-fit rounded-sm bg-[var(--grammar-title-bg)] px-1.5 py-px text-xs font-normal text-foreground">
                                               {example.source}
                                             </span>
                                             <span className="text-[0.78rem] leading-[1.55] text-foreground">
