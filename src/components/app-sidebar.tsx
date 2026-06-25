@@ -76,7 +76,7 @@ export function AppSidebar() {
         {navGroups.map((group) => (
           <Sidebar001Group
             key={group.label}
-            label={<>{group.label} <span className="ml-1 text-xs text-foreground/30">({group.count})</span></>}
+            label={<>{group.label} <span className="ml-1 text-xs text-foreground/30"> {group.count}</span></>}
             icon={group.icon ? <group.icon className="size-3.5" /> : undefined}
             defaultOpen={group.defaultOpen}
             showChevron={false}
