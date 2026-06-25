@@ -747,7 +747,7 @@ function ArticleReader({ article }: { article: Article }) {
             </ContextMenu>
           </section>
 
-          <div className="hidden" />
+          <div className="hidden w-px shrink-0 bg-[linear-gradient(to_bottom,transparent,var(--border)_88px,var(--border)_calc(100%-88px),transparent)] lg:block" />
 
           <aside className="min-w-0 flex-[3] space-y-7 lg:pt-[76px]">
             <section className="space-y-4">
