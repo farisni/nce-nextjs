@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import {
   Sidebar001,
   Sidebar001Header,
@@ -54,6 +54,7 @@ export function AppSidebar() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const activeArticleId = searchParams.get("article") ?? "";
+  const router = useRouter();
 
   return (
     <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360}>
@@ -77,6 +78,7 @@ export function AppSidebar() {
                 isNew={item.isNew}
                 label={item.label}
                 isActive={activeArticleId === item.id}
+                onClick={(e) => { e.preventDefault(); router.push(`/itles?article=${item.id}`); }}
               />
             ))}
           </Sidebar001Group>
