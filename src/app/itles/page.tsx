@@ -641,7 +641,7 @@ function ArticleReader({ article }: { article: Article }) {
                       </div>
                     ))}
                     {!isIelts && articleParagraphTranslations.some(Boolean) && (
-                      <div className="mt-10 border-t pt-6">
+                      <div className="mt-10 pt-6">
                         <h2 className="mb-4 text-lg font-semibold text-foreground">参考译文</h2>
                         {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
                           <p
@@ -654,7 +654,7 @@ function ArticleReader({ article }: { article: Article }) {
                       </div>
                     )}
                     {!isIelts && article.notesOnText?.length ? (
-                      <div className="mt-10 border-t pt-6">
+                      <div className="mt-10 pt-6">
                         <h2 className="mb-4 text-lg font-semibold text-foreground">课文注释</h2>
                         <div className="space-y-3">
                           {article.notesOnText.map((note, i) => (
