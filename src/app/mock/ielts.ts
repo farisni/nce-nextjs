@@ -1,43 +1,4 @@
-export interface VocabItem {
-  word: string
-  pos: string
-  meaning: string
-  phonetic?: string
-}
-
-export interface SentenceNote {
-  title: string
-  body: string
-}
-
-export interface SentenceData {
-  text: string
-  translation: string
-  predicates: string[]
-  clauseIntroducers: string[]
-  rubyNotes: SentenceNote[]
-  structureNotes?: SentenceNote[]
-}
-
-export interface Article {
-  id: string
-  title: string
-  titleCn: string
-  level: string
-  lesson: number
-  heatmap: number[][]
-  attribution: string
-  original: {
-    paragraphs: SentenceData[][]
-  }
-  vocabulary: VocabItem[]
-}
-
-export interface GrammarRelatedExample {
-  source: string
-  sentence: string
-  note: string
-}
+import type { Article, GrammarRelatedExample, VocabItem, SentenceData } from './types';
 
 export const grammarRelatedExamples: Record<string, GrammarRelatedExample[]> = {
   asReason: [

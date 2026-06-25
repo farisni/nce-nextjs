@@ -31,13 +31,8 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import {
-  articleIeltsList,
-  articlesIelts,
-  grammarRelatedExamples,
-  type Article,
-  type GrammarRelatedExample,
-} from "@/app/mock/ielts";
+import { allArticles, getArticleList, type Article, type GrammarRelatedExample } from "@/app/mock";
+import { grammarRelatedExamples } from "@/app/mock/ielts";
 import {
   Collapsible,
   CollapsibleContent,
@@ -57,7 +52,7 @@ import {
 } from "@/components/ui/context-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-const DEFAULT_ARTICLE_ID = "ielts-1";
+const DEFAULT_ARTICLE_ID = "nce3-l1";
 
 type GrammarSummaryNote = {
   key: string;
@@ -336,7 +331,7 @@ export default function ContextMenuDemoPage({ searchParams }: ContextMenuDemoPag
   }
 
   const selectedArticleId = articleParam;
-  const article = articlesIelts[selectedArticleId] ?? articlesIelts[DEFAULT_ARTICLE_ID];
+  const article = allArticles[selectedArticleId] ?? allArticles[DEFAULT_ARTICLE_ID];
 
   return <ArticleReader article={article} />;
 }
@@ -351,7 +346,7 @@ function IeltsArticleList() {
         </div>
 
         <div className="divide-y divide-border">
-          {articleIeltsList.map((article) => (
+          {getArticleList(allArticles).map((article) => (
             <Link
               key={article.id}
               href={`/itles?article=${article.id}`}
