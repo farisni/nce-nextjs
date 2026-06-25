@@ -131,6 +131,34 @@
     @apply font-sans;
   }
 }
+
+/* ─── Unified Palette (5 tones) ──────────────────────────────────────────── */
+:root {
+  --tone-1: #ede8e3;
+  --tone-1-strong: #d6c9b8;
+  --tone-2: #e3e8ed;
+  --tone-2-strong: #c7d7de;
+  --tone-3: #e8ede3;
+  --tone-3-strong: #cbdcc4;
+  --tone-4: #ede3e8;
+  --tone-4-strong: #dcc6d0;
+  --tone-5: #e8e3ed;
+  --tone-5-strong: #d0c7df;
+}
+
+.dark {
+  --tone-1: rgba(237, 232, 227, 0.18);
+  --tone-1-strong: rgba(214, 201, 184, 0.3);
+  --tone-2: rgba(227, 232, 237, 0.18);
+  --tone-2-strong: rgba(199, 215, 222, 0.3);
+  --tone-3: rgba(232, 237, 227, 0.18);
+  --tone-3-strong: rgba(203, 220, 196, 0.3);
+  --tone-4: rgba(237, 227, 232, 0.18);
+  --tone-4-strong: rgba(220, 198, 208, 0.3);
+  --tone-5: rgba(232, 227, 237, 0.18);
+  --tone-5-strong: rgba(208, 199, 223, 0.3);
+}
+
 .article-notes { margin-bottom: 24px; }
 .note-item { margin-bottom: 8px; font-size: 0.85rem; line-height: 1.7; }
 .note-index { font-size: 0.85rem; font-weight: 550; color: #aaa; margin-right: 6px; }
@@ -138,17 +166,17 @@
 .note-body { color: #666; }
 .section-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; padding-top: 28px; }
 
-.note-item:nth-child(5n+1) .note-label { background: #ede8e3; }
-.note-item:nth-child(5n+2) .note-label { background: #e3e8ed; }
-.note-item:nth-child(5n+3) .note-label { background: #e8ede3; }
-.note-item:nth-child(5n+4) .note-label { background: #ede3e8; }
-.note-item:nth-child(5n+5) .note-label { background: #e8e3ed; }
+.note-item:nth-child(5n+1) .note-label { background: var(--tone-1); background: #ede8e3; }
+.note-item:nth-child(5n+2) .note-label { background: var(--tone-2); background: #e3e8ed; }
+.note-item:nth-child(5n+3) .note-label { background: var(--tone-3); background: #e8ede3; }
+.note-item:nth-child(5n+4) .note-label { background: var(--tone-4); background: #ede3e8; }
+.note-item:nth-child(5n+5) .note-label { background: var(--tone-5); background: #e8e3ed; }
 
 .dark .note-index { color: #888; }
 .dark .note-label { color: #e0e0e0; }
 .dark .note-body { color: #aaa; }
-.dark .note-item:nth-child(5n+1) .note-label { background: rgba(237, 232, 227, 0.18); }
-.dark .note-item:nth-child(5n+2) .note-label { background: rgba(227, 232, 237, 0.18); }
-.dark .note-item:nth-child(5n+3) .note-label { background: rgba(232, 237, 227, 0.18); }
-.dark .note-item:nth-child(5n+4) .note-label { background: rgba(237, 227, 232, 0.18); }
-.dark .note-item:nth-child(5n+5) .note-label { background: rgba(232, 227, 237, 0.18); }
+.dark .note-item:nth-child(5n+1) .note-label { background: var(--tone-1); background: rgba(237, 232, 227, 0.18); }
+.dark .note-item:nth-child(5n+2) .note-label { background: var(--tone-2); background: rgba(227, 232, 237, 0.18); }
+.dark .note-item:nth-child(5n+3) .note-label { background: var(--tone-3); background: rgba(232, 237, 227, 0.18); }
+.dark .note-item:nth-child(5n+4) .note-label { background: var(--tone-4); background: rgba(237, 227, 232, 0.18); }
+.dark .note-item:nth-child(5n+5) .note-label { background: var(--tone-5); background: rgba(232, 227, 237, 0.18); }

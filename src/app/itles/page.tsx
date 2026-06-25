@@ -102,11 +102,11 @@ function areGrammarSummaryMetricsEqual(
 }
 
 const GRAMMAR_TONE_STYLES: Record<GrammarSummaryGroup["tone"], GrammarToneStyle> = {
-  1: { "--grammar-mark-color": "#d6c9b8", "--grammar-title-bg": "#e5dfd5" },
-  2: { "--grammar-mark-color": "#c7d7de", "--grammar-title-bg": "#dce5e9" },
-  3: { "--grammar-mark-color": "#cbdcc4", "--grammar-title-bg": "#dfe8da" },
-  4: { "--grammar-mark-color": "#dcc6d0", "--grammar-title-bg": "#e9dce2" },
-  5: { "--grammar-mark-color": "#d0c7df", "--grammar-title-bg": "#e1dcea" },
+  1: { "--grammar-mark-color": "var(--tone-1-strong)", "--grammar-title-bg": "var(--tone-1)" },
+  2: { "--grammar-mark-color": "var(--tone-2-strong)", "--grammar-title-bg": "var(--tone-2)" },
+  3: { "--grammar-mark-color": "var(--tone-3-strong)", "--grammar-title-bg": "var(--tone-3)" },
+  4: { "--grammar-mark-color": "var(--tone-4-strong)", "--grammar-title-bg": "var(--tone-4)" },
+  5: { "--grammar-mark-color": "var(--tone-5-strong)", "--grammar-title-bg": "var(--tone-5)" },
 };
 
 const AI_INPUT_WIDTH = 360;
