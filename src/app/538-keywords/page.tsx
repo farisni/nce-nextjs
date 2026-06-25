@@ -21,7 +21,7 @@ export default function KeywordsPage() {
   return (
     <main className="min-h-svh px-6 py-10">
       <section className="mx-auto w-full max-w-5xl">
-        <h1 className="mb-6 text-2xl font-bold">IELTS 538 Keywords</h1>
+        <h1 className="mb-6 text-2xl font-bold">538 考点词</h1>
 
         <div className="mb-6 flex flex-wrap gap-1.5">
           {keywordCategories.map((cat) => (

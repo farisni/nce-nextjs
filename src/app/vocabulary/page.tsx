@@ -80,7 +80,7 @@ export default function VocabularyPage() {
   return (
     <main className="min-h-svh px-6 py-10">
       <section className="mx-auto w-full max-w-4xl">
-        <h1 className="mb-6 text-2xl font-bold">IELTS Vocabulary</h1>
+        <h1 className="mb-6 text-2xl font-bold">雅思词汇真经</h1>
 
         <div className="mb-4 flex items-center justify-between">
           <p className="text-sm text-muted-foreground">

@@ -57,14 +57,14 @@ const navGroups = [
       {
         id: "vocabulary",
         isNew: true,
-        label: "Vocabulary",
+        label: "雅思词汇真经",
         route: "/vocabulary",
       },
       {
-        id: "keywords",
+        id: "538-keywords",
         isNew: true,
-        label: "538 Keywords",
-        route: "/keywords",
+        label: "538 考点词",
+        route: "/538-keywords",
       },
       ...ieltsList.map((a) => ({
         id: a.id,
@@ -102,13 +102,13 @@ export function AppSidebar() {
             {group.items.map((item) => (
               <Sidebar001Item
                 key={item.id}
-                href={item.route + ((item.id === "vocabulary" || item.id === "keywords") ? "" : `?article=${item.id}`)}
+                href={item.route + ((item.id === "vocabulary" || item.id === "538-keywords") ? "" : `?article=${item.id}`)}
                 isNew={item.isNew}
                 label={item.label}
-                isActive={activeArticleId === item.id || ((item.id === "vocabulary" || item.id === "keywords") && pathname === item.route)}
+                isActive={activeArticleId === item.id || ((item.id === "vocabulary" || item.id === "538-keywords") && pathname === item.route)}
                 onClick={(e) => {
                   e.preventDefault();
-                  router.push(item.route + ((item.id === "vocabulary" || item.id === "keywords") ? "" : `?article=${item.id}`));
+                  router.push(item.route + ((item.id === "vocabulary" || item.id === "538-keywords") ? "" : `?article=${item.id}`));
                 }}
               />
             ))}
