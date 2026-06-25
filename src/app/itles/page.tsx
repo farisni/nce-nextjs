@@ -882,7 +882,7 @@ function ArticleReader({ article }: { article: Article }) {
                     <div className="divide-y divide-border">
                       {article.vocabulary.map((item) => (
                         <div key={item.word} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 py-2">
-                          <span className="text-[0.82rem] text-foreground">{item.word}</span>
+                          <span className="text-[0.95rem] text-foreground">{item.word}</span>
                           <span className="text-xs text-muted-foreground">{item.pos}</span>
                           <span className="text-sm leading-6 text-muted-foreground">
                             {item.meaning}
