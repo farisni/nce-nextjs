@@ -20,11 +20,11 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="min-h-full">
-        <div className="flex h-svh flex-col bg-background text-foreground md:flex-row">
+        <div className="flex h-svh flex-col overflow-hidden bg-background text-foreground md:flex-row">
           <Suspense fallback={null}>
             <AppSidebar />
           </Suspense>
-          <main className="min-w-0 flex-1">{children}</main>
+          <main className="min-w-0 flex-1 overflow-y-auto">{children}</main>
         </div>
       </body>
     </html>
