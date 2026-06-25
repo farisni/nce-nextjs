@@ -20,7 +20,7 @@ export default function RootLayout({
       className="h-full antialiased"
     >
       <body className="min-h-full">
-        <div className="flex min-h-svh flex-col bg-background text-foreground md:flex-row">
+        <div className="flex h-svh flex-col bg-background text-foreground md:flex-row">
           <Suspense fallback={null}>
             <AppSidebar />
           </Suspense>
