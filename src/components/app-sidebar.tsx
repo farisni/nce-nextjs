@@ -16,6 +16,7 @@ const navGroups = [
     label: "NCE2",
     items: nce2List.map((a) => ({
       id: a.id,
+      isNew: a.keyArticle,
       label: `L${a.lesson} ${a.titleCn ?? a.title}`,
     })),
   },
@@ -23,6 +24,7 @@ const navGroups = [
     label: "NCE3",
     items: nce3List.map((a) => ({
       id: a.id,
+      isNew: a.keyArticle,
       label: `L${a.lesson} ${a.titleCn ?? a.title}`,
     })),
   },
@@ -30,6 +32,7 @@ const navGroups = [
     label: "NCE4",
     items: nce4List.map((a) => ({
       id: a.id,
+      isNew: a.keyArticle,
       label: `L${a.lesson} ${a.titleCn ?? a.title}`,
     })),
   },
@@ -37,6 +40,7 @@ const navGroups = [
     label: "IELTS",
     items: ieltsList.map((a) => ({
       id: a.id,
+      isNew: a.keyArticle,
       label: a.title,
     })),
   },
@@ -66,6 +70,7 @@ export function AppSidebar() {
               <Sidebar001Item
                 key={item.id}
                 href={`/itles?article=${item.id}`}
+                isNew={item.isNew}
                 label={item.label}
                 isActive={activeArticleId === item.id}
               />

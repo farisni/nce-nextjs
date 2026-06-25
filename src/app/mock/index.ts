@@ -24,9 +24,10 @@ export interface ArticleListItem {
   lesson: number;
   paragraphCount: number;
   vocabularyCount: number;
+  keyArticle?: boolean;
 }
 
-export function getArticleList(articles: Record<string, { id: string; title: string; titleCn?: string; level: string; lesson: number; original: { paragraphs: unknown[][] }; vocabulary: unknown[] }>): ArticleListItem[] {
+export function getArticleList(articles: Record<string, { id: string; title: string; titleCn?: string; level: string; lesson: number; original: { paragraphs: unknown[][] }; vocabulary: unknown[]; keyArticle?: boolean }>): ArticleListItem[] {
   return Object.values(articles)
     .sort((a, b) => a.lesson - b.lesson)
     .map((article) => ({
@@ -37,6 +38,7 @@ export function getArticleList(articles: Record<string, { id: string; title: str
       lesson: article.lesson,
       paragraphCount: article.original.paragraphs.length,
       vocabularyCount: article.vocabulary.length,
+      keyArticle: article.keyArticle,
     }));
 }
 
