@@ -635,7 +635,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {isIelts && articleParagraphTranslations[index] ? (
                           <p
                             data-selection-offset-excluded="true"
-                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
                           >
                             {articleParagraphTranslations[index]}
                           </p>
@@ -660,7 +660,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
                           <p
                             key={i}
-                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
                           >
                             {trans}
                           </p>
@@ -827,7 +827,7 @@ function ArticleReader({ article }: { article: Article }) {
                                     }}
                                     className="flex flex-col gap-1 border-b py-[7px] last:border-b-0"
                                   >
-                                    <span className="w-fit rounded-md bg-[var(--grammar-title-bg)] px-1.5 py-px text-[0.85rem] font-normal text-foreground">
+                                    <span className="w-fit rounded-md bg-[var(--grammar-title-bg)] px-1.5 py-px text-[0.95rem] font-normal text-foreground">
                                       {note.title}
                                     </span>
                                     <p className="text-[0.82rem] leading-[1.65] text-muted-foreground">
