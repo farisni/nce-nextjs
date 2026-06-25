@@ -5,7 +5,7 @@ import "./globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
-  title: "NCE Reading",
+  title: "NCE BOOK",
   description: "New Concept English Reading",
 };
 

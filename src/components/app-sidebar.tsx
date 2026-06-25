@@ -22,6 +22,7 @@ const navGroups = [
       id: a.id,
       isNew: a.keyArticle,
       label: `L${a.lesson} ${a.title}`,
+      route: "/nec2",
     })),
   },
   {
@@ -33,6 +34,7 @@ const navGroups = [
       id: a.id,
       isNew: a.keyArticle,
       label: `L${a.lesson} ${a.title}`,
+      route: "/nec3",
     })),
   },
   {
@@ -44,6 +46,7 @@ const navGroups = [
       id: a.id,
       isNew: a.keyArticle,
       label: `L${a.lesson} ${a.title}`,
+      route: "/nec4",
     })),
   },
   {
@@ -55,6 +58,7 @@ const navGroups = [
       id: a.id,
       isNew: a.keyArticle,
       label: a.title,
+      route: "/itles",
     })),
   },
 ];
@@ -86,11 +90,11 @@ export function AppSidebar() {
             {group.items.map((item) => (
               <Sidebar001Item
                 key={item.id}
-                href={`/itles?article=${item.id}`}
+                href={`${item.route}?article=${item.id}`}
                 isNew={item.isNew}
                 label={item.label}
                 isActive={activeArticleId === item.id}
-                onClick={(e) => { e.preventDefault(); router.push(`/itles?article=${item.id}`); }}
+                onClick={(e) => { e.preventDefault(); router.push(`${item.route}?article=${item.id}`); }}
               />
             ))}
           </Sidebar001Group>
