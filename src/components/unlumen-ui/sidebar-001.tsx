@@ -512,7 +512,6 @@ export function Sidebar001({
             onPointerMove={onPointerMove}
             onPointerUp={onPointerUp}
           >
-            <div className="absolute right-0 top-0 h-full w-px bg-border/50 group-hover/handle:bg-border transition-colors duration-150" />
           </div>
         </aside>
       </HoverProvider>
