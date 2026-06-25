@@ -62,6 +62,7 @@ import { Separator } from "@/components/ui/separator";
 import { GooeyInput } from "@/components/ui/gooey-input";
 import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
+import { TextHighlight } from "@/components/text-highlight";
 import { BorderBeam } from "@/components/ui/border-beam";
 import { ShineBorder } from "@/components/ui/shine-border";
 
@@ -651,7 +652,9 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                 </BreadcrumbList>
               </Breadcrumb>
               <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance pl-[2.25rem]">
-                {article.title}
+                <TextHighlight color="#fbb150" duration={800} iterations={2}>
+                  {article.title}
+                </TextHighlight>
                 <span className="text-xl font-normal text-muted-foreground">
                   {article.titleCn}
                 </span>
