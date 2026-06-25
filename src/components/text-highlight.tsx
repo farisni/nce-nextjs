@@ -12,10 +12,10 @@ interface TextHighlightProps {
 
 function getRoughOptions(seed: number): any {
     return {
-        maxRandomnessOffset: 2,
-        roughness: 1.5,
-        bowing: 1,
-        strokeWidth: 2,
+        maxRandomnessOffset: 2.6,
+        roughness: 1.2,
+        bowing: 1.2,
+        strokeWidth: 1.5,
         seed,
         disableMultiStroke: true,
     };
@@ -44,6 +44,7 @@ export function TextHighlight({
     iterations = 2,
 }: TextHighlightProps) {
     const containerRef = useRef<HTMLSpanElement>(null);
+    const seedRef = useRef(Date.now());
     const [svgData, setSvgData] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
     useEffect(() => {
@@ -69,7 +70,7 @@ export function TextHighlight({
     if (width > 0) {
         const gen = rough.generator(undefined);
         for (let i = 0; i < iterations; i++) {
-            const opts = getRoughOptions(i * 100 + 42);
+            const opts = getRoughOptions(seedRef.current + i * 100);
             const x1 = i % 2 === 0 ? 2 : width - 2;
             const x2 = i % 2 === 0 ? width - 2 : 2;
             const drawing = gen.line(x1, lineY, x2, lineY, opts);
@@ -99,7 +100,7 @@ export function TextHighlight({
                             d={p.d}
                             fill="none"
                             stroke={color}
-                            strokeWidth={2.5}
+                            strokeWidth={1.8}
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             style={{

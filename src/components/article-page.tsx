@@ -652,7 +652,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                 </BreadcrumbList>
               </Breadcrumb>
               <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance pl-[2.25rem]">
-                <TextHighlight color="#fbb150" duration={800} iterations={2}>
+                <TextHighlight key={article.id} color="#fbb150" duration={800} iterations={2}>
                   {article.title}
                 </TextHighlight>
                 <span className="text-xl font-normal text-muted-foreground">
