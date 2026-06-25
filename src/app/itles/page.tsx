@@ -883,7 +883,7 @@ function ArticleReader({ article }: { article: Article }) {
                       {article.vocabulary.map((item) => (
                         <div key={item.word} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 py-2">
                           <span className="text-[0.95rem] text-foreground">{item.word}</span>
-                          {item.phonetic ? (
+                          {item.phonetic && item.phonetic !== "//" ? (
                             <span className="text-[0.75rem] text-muted-foreground/60">{item.phonetic}</span>
                           ) : null}
                           <span className="text-xs text-muted-foreground">{item.pos}</span>
