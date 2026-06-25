@@ -641,16 +641,15 @@ function ArticleReader({ article }: { article: Article }) {
                       </div>
                     ))}
                     {!isIelts && article.notesOnText?.length ? (
-                      <div className="mt-10 border-t pt-6">
-                        <h2 className="mb-4 text-lg font-semibold text-foreground">课文注释</h2>
-                        <div className="space-y-3">
-                          {article.notesOnText.map((note, i) => (
-                            <div key={i} className="rounded-md bg-muted/50 px-4 py-3">
-                              <p className="text-sm font-medium text-foreground">{note.title}</p>
-                              <p className="mt-1 text-sm text-muted-foreground">{note.body}</p>
-                            </div>
-                          ))}
-                        </div>
+                      <div className="article-notes">
+                        <h2 className="section-title">课文注释</h2>
+                        {article.notesOnText.map((note, i) => (
+                          <div key={i} className="note-item">
+                            <span className="note-index">{i + 1}.</span>
+                            <span className="note-label">{note.title}</span>
+                            <span className="note-body">{note.body}</span>
+                          </div>
+                        ))}
                       </div>
                     ) : null}
                     {!isIelts && articleParagraphTranslations.some(Boolean) && (
