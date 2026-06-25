@@ -598,11 +598,11 @@ function ArticleReader({ article }: { article: Article }) {
 
         <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch">
           <section className="min-w-0 flex-[7]">
-            <header className="mb-7 space-y-3 pl-2">
+            <header className="mb-7 space-y-3">
               <p className="text-sm font-medium text-muted-foreground">
                 {article.level} / Lesson {article.lesson}
               </p>
-              <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance">
+              <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-3xl font-semibold tracking-normal text-balance pl-2">
                 {article.title}
                 <span className="text-xl font-normal text-muted-foreground">
                   {article.titleCn}
