@@ -9,8 +9,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { vocabChapters, type VocabWord } from "@/app/mock/vocabulary";
+import { Badge } from "@/components/ui/badge";
 
 export default function VocabularyPage() {
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
@@ -34,19 +34,20 @@ export default function VocabularyPage() {
       <section className="mx-auto w-full max-w-5xl">
         <h1 className="mb-6 text-2xl font-bold">IELTS Vocabulary</h1>
 
-        <Tabs value={chapter} onValueChange={setChapter} className="mb-6">
-          <TabsList className="h-auto flex-wrap gap-1 bg-transparent p-0">
-            {vocabChapters.map((ch) => (
-              <TabsTrigger
-                key={ch.title}
-                value={ch.title}
-                className="rounded-md px-3 py-1.5 text-xs data-[state=active]:bg-muted"
-              >
-                {ch.title}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <div className="mb-6 flex flex-wrap gap-1.5">
+          {vocabChapters.map((ch) => (
+            <Badge
+              key={ch.title}
+              color={chapter === ch.title ? "blue" : "gray"}
+              variant="dot"
+              size="sm"
+              className="cursor-pointer"
+              onClick={() => setChapter(ch.title)}
+            >
+              {ch.title}
+            </Badge>
+          ))}
+        </div>
 
         <p className="mb-4 text-sm text-muted-foreground">
           {words.length} words
