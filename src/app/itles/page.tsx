@@ -640,19 +640,6 @@ function ArticleReader({ article }: { article: Article }) {
                         ) : null}
                       </div>
                     ))}
-                    {!isIelts && articleParagraphTranslations.some(Boolean) && (
-                      <div className="mt-10 pt-6">
-                        <h2 className="mb-4 text-lg font-semibold text-foreground">参考译文</h2>
-                        {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
-                          <p
-                            key={i}
-                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
-                          >
-                            {trans}
-                          </p>
-                        ))}
-                      </div>
-                    )}
                     {!isIelts && article.notesOnText?.length ? (
                       <div className="mt-10 border-t pt-6">
                         <h2 className="mb-4 text-lg font-semibold text-foreground">课文注释</h2>
@@ -666,6 +653,19 @@ function ArticleReader({ article }: { article: Article }) {
                         </div>
                       </div>
                     ) : null}
+                    {!isIelts && articleParagraphTranslations.some(Boolean) && (
+                      <div className="mt-10 pt-6">
+                        <h2 className="mb-4 text-lg font-semibold text-foreground">参考译文</h2>
+                        {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
+                          <p
+                            key={i}
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
+                          >
+                            {trans}
+                          </p>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </article>
               </ContextMenuTrigger>
