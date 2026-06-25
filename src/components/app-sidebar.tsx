@@ -69,8 +69,8 @@ export function AppSidebar() {
     <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360} className="md:h-svh md:sticky md:top-0">
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
+          <Matrix rows={5} cols={5} frames={snake} size={3} gap={1} fps={12} autoplay loop className="mr-1 shrink-0" palette={{ on: "var(--foreground)", off: "var(--muted)" }} />
           <span className="text-lg font-semibold">NCE BOOK</span>
-          <Matrix rows={5} cols={5} frames={snake} size={3} gap={1} fps={12} autoplay loop className="ml-1 shrink-0" palette={{ on: "var(--foreground)", off: "var(--muted)" }} />
         </div>
       </Sidebar001Header>
 
