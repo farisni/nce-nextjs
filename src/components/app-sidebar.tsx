@@ -9,6 +9,7 @@ import {
   Sidebar001Group,
   Sidebar001Item,
 } from "@/components/unlumen-ui/sidebar-001";
+import { Matrix, snake } from "@/components/unlumen-ui/matrix";
 import { nce2List, nce3List, nce4List, ieltsList } from "@/app/mock";
 
 const navGroups = [
@@ -69,7 +70,7 @@ export function AppSidebar() {
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
           <span className="text-lg font-semibold">NCE BOOK</span>
-          <span className="text-[0.65rem] font-mono text-foreground/40 tracking-[0.15em] border border-foreground/15 rounded px-1 py-px">SNAKE</span>
+          <Matrix rows={7} cols={7} frames={snake} size={3} gap={1} fps={12} autoplay loop className="shrink-0" palette={{ on: "var(--foreground)", off: "var(--muted)" }} />
         </div>
       </Sidebar001Header>
 
