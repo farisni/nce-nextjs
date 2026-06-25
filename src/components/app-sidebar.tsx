@@ -65,7 +65,7 @@ export function AppSidebar() {
   const router = useRouter();
 
   return (
-    <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360}>
+    <Sidebar001 defaultWidth={260} minWidth={200} maxWidth={360} className="md:h-svh md:sticky md:top-0">
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
           <span className="text-lg font-semibold">NCE BOOK</span>
