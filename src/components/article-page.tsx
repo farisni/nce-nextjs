@@ -621,22 +621,21 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
 
   return (
     <main className="min-h-svh bg-background">
-      <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-8 px-5 py-6 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-4 pb-4 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_20%,var(--border)_80%,transparent)]">
-          <Button variant="outline" size="sm" asChild>
-            <Link href="/itles">
-              <ArrowLeft />
-              Articles
-            </Link>
-          </Button>
-          <Button variant="outline" size="sm" disabled>
-            Lesson {article.lesson}
-          </Button>
-        </div>
-
+      <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-4 px-5 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch">
           <section className="min-w-0 flex-[7]">
-            <header className="mb-7 space-y-3">
+            <div className="flex items-center gap-4 pb-2 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_20%,var(--border)_80%,transparent)]">
+              <Button variant="outline" size="sm" asChild>
+                <Link href={LEVEL_ROUTES[article.level] ?? "/itles"}>
+                  <ArrowLeft />
+                  Articles
+                </Link>
+              </Button>
+              <Button variant="outline" size="sm" disabled>
+                Lesson {article.lesson}
+              </Button>
+            </div>
+            <header className="mb-4 mt-4 space-y-3">
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
