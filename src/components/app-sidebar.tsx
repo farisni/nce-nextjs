@@ -70,7 +70,7 @@ export function AppSidebar() {
       <Sidebar001Header>
         <div className="flex items-center gap-2 px-1">
           <span className="text-lg font-semibold">NCE BOOK</span>
-          <Matrix rows={5} cols={5} frames={snake} size={3} gap={1} fps={12} autoplay loop className="ml-2 shrink-0" palette={{ on: "var(--foreground)", off: "var(--muted)" }} />
+          <Matrix rows={5} cols={5} frames={snake} size={3} gap={1} fps={12} autoplay loop className="ml-1 shrink-0" palette={{ on: "var(--foreground)", off: "var(--muted)" }} />
         </div>
       </Sidebar001Header>
 
