@@ -169,8 +169,8 @@
 
 .article-notes { margin-bottom: 24px; }
 .note-item { margin-bottom: 8px; font-size: 0.85rem; line-height: 1.7; }
-.note-index { font-size: 0.85rem; font-weight: 550; color: #aaa; margin-right: 6px; }
-.note-label { display: inline-block; padding: 2px 8px; font-size: 0.85rem; font-weight: 550; color: #37352f; border-radius: 6px; margin-right: 8px; }
+.note-index { font-size: 0.85rem; font-weight: 400; color: #aaa; margin-right: 6px; }
+.note-label { display: inline-block; padding: 2px 8px; font-size: 0.85rem; font-weight: 400; color: #37352f; border-radius: 6px; margin-right: 8px; }
 .note-body { color: #666; }
 .section-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; padding-top: 28px; }
 
