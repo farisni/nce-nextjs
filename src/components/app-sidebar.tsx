@@ -14,6 +14,7 @@ import { nce2List, nce3List, nce4List, ieltsList } from "@/app/mock";
 const navGroups = [
   {
     label: "NCE2",
+    defaultOpen: false,
     items: nce2List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
@@ -22,6 +23,7 @@ const navGroups = [
   },
   {
     label: "NCE3",
+    defaultOpen: false,
     items: nce3List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
@@ -30,6 +32,7 @@ const navGroups = [
   },
   {
     label: "NCE4",
+    defaultOpen: true,
     items: nce4List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
@@ -38,6 +41,7 @@ const navGroups = [
   },
   {
     label: "IELTS",
+    defaultOpen: false,
     items: ieltsList.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
@@ -64,7 +68,7 @@ export function AppSidebar() {
           <Sidebar001Group
             key={group.label}
             label={group.label}
-            defaultOpen={true}
+            defaultOpen={group.defaultOpen}
           >
             {group.items.map((item) => (
               <Sidebar001Item
