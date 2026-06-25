@@ -18,7 +18,7 @@ const navGroups = [
     items: nce2List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
-      label: `L${a.lesson} ${a.titleCn ?? a.title}`,
+      label: `L${a.lesson} ${a.title}`,
     })),
   },
   {
@@ -27,7 +27,7 @@ const navGroups = [
     items: nce3List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
-      label: `L${a.lesson} ${a.titleCn ?? a.title}`,
+      label: `L${a.lesson} ${a.title}`,
     })),
   },
   {
@@ -36,7 +36,7 @@ const navGroups = [
     items: nce4List.map((a) => ({
       id: a.id,
       isNew: a.keyArticle,
-      label: `L${a.lesson} ${a.titleCn ?? a.title}`,
+      label: `L${a.lesson} ${a.title}`,
     })),
   },
   {
