@@ -884,7 +884,7 @@ function ArticleReader({ article }: { article: Article }) {
                         <div key={item.word} className="flex flex-wrap items-baseline gap-x-2 gap-y-1 py-2">
                           <span className="text-sm text-foreground">{item.word}</span>
                           <span className="text-xs text-muted-foreground">{item.pos}</span>
-                          <span className="text-sm leading-6 text-muted-foreground">
+                          <span className="text-xs leading-5 text-muted-foreground">
                             {item.meaning}
                           </span>
                         </div>
