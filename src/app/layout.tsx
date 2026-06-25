@@ -19,9 +19,6 @@ export default function RootLayout({
       lang="en"
       className="h-full antialiased"
     >
-      <head>
-        <link crossOrigin="anonymous" integrity="sha512-uushWJqqsPYQOOyatyQoJ44WljQCC70km/MB94XcZVajojoEWQ7S4DoFMtIh4AqmS0to9mI84jxZHR2aV/OIlA==" href="https://lib.baomitu.com/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" rel="stylesheet" />
-      </head>
       <body className="min-h-full">
         <div className="flex h-svh flex-col overflow-hidden bg-background text-foreground md:flex-row">
           <Suspense fallback={null}>
