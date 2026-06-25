@@ -624,7 +624,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
       <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-4 px-5 py-6 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch">
           <section className="min-w-0 flex-[7]">
-            <div className="flex items-center gap-4 pb-2 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_20%,var(--border)_80%,transparent)]">
+            <div className="flex items-center justify-between gap-4 pb-2 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-border">
               <Button variant="outline" size="sm" asChild>
                 <Link href={LEVEL_ROUTES[article.level] ?? "/itles"}>
                   <ArrowLeft />
@@ -794,7 +794,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
             </ContextMenu>
           </section>
 
-          <div className="hidden w-px shrink-0 bg-[linear-gradient(to_bottom,transparent,var(--border)_88px,var(--border)_calc(100%-88px),transparent)] lg:block" />
+          <div className="hidden w-px shrink-0 bg-[linear-gradient(to_bottom,transparent,var(--border)_15%,var(--border)_85%,transparent)] lg:block" />
 
           <aside className="min-w-0 flex-[3] space-y-7 lg:pt-[76px]">
             <section className="space-y-4">
