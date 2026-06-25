@@ -142,12 +142,12 @@
   --tone-3-strong: #cbdcc4;
   --tone-4: #ede3e8;
   --tone-4-strong: #dcc6d0;
-  --tone-5: #e8e3ed;
-  --tone-5-strong: #d0c7df;
+  --tone-5: #ddebe8;
+  --tone-5-strong: #bcd5cf;
   --tone-6: #fce4d8;
   --tone-6-strong: #f0c8b2;
-  --tone-7: #ddebe8;
-  --tone-7-strong: #bcd5cf;
+  --tone-7: #e8e3ed;
+  --tone-7-strong: #d0c7df;
 }
 
 .dark {
@@ -159,12 +159,12 @@
   --tone-3-strong: rgba(203, 220, 196, 0.3);
   --tone-4: rgba(237, 227, 232, 0.18);
   --tone-4-strong: rgba(220, 198, 208, 0.3);
-  --tone-5: rgba(232, 227, 237, 0.18);
-  --tone-5-strong: rgba(208, 199, 223, 0.3);
+  --tone-5: rgba(221, 235, 232, 0.18);
+  --tone-5-strong: rgba(188, 213, 207, 0.3);
   --tone-6: rgba(252, 228, 216, 0.18);
   --tone-6-strong: rgba(240, 200, 178, 0.3);
-  --tone-7: rgba(221, 235, 232, 0.18);
-  --tone-7-strong: rgba(188, 213, 207, 0.3);
+  --tone-7: rgba(232, 227, 237, 0.18);
+  --tone-7-strong: rgba(208, 199, 223, 0.3);
 }
 
 .article-notes { margin-bottom: 24px; }
