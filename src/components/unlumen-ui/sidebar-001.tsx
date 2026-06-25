@@ -291,6 +291,7 @@ export interface Sidebar001GroupProps {
   defaultOpen?: boolean;
   icon?: React.ReactNode;
   className?: string;
+  showChevron?: boolean;
 }
 
 export function Sidebar001Group({
@@ -299,6 +300,7 @@ export function Sidebar001Group({
   defaultOpen = false,
   icon,
   className,
+  showChevron = true,
 }: Sidebar001GroupProps) {
   const [isOpen, setIsOpen] = useState(false);
   const id = useId();
@@ -348,6 +350,7 @@ export function Sidebar001Group({
             <span className="text-sm text-foreground/45 group-hover:text-foreground/70 transition-colors duration-150 flex-1">
               {label}
             </span>
+            {showChevron && (
             <MotionChevron
               size={14}
               strokeWidth={2.5}
@@ -355,9 +358,11 @@ export function Sidebar001Group({
               animate={{ rotate: isOpen ? 90 : 0 }}
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
+            )}
           </>
         ) : (
           <>
+            {showChevron && (
             <MotionChevron
               size={11}
               strokeWidth={2.5}
@@ -365,6 +370,7 @@ export function Sidebar001Group({
               animate={{ rotate: isOpen ? 90 : 0 }}
               transition={{ type: "spring", stiffness: 500, damping: 30 }}
             />
+            )}
             <span className="text-sm text-foreground/45 group-hover:text-foreground/70 transition-colors duration-150">
               {label}
             </span>

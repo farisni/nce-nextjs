@@ -68,13 +68,14 @@ export function AppSidebar() {
         </div>
       </Sidebar001Header>
 
-      <Sidebar001Content className="sidebar-no-chevron">
+      <Sidebar001Content>
         {navGroups.map((group) => (
           <Sidebar001Group
             key={group.label}
             label={group.label}
             icon={group.icon ? <group.icon className="size-3.5" /> : undefined}
             defaultOpen={group.defaultOpen}
+            showChevron={false}
           >
             {group.items.map((item) => (
               <Sidebar001Item
