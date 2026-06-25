@@ -7,7 +7,6 @@ import {
   Sidebar001Content,
   Sidebar001Group,
   Sidebar001Item,
-  Sidebar001Footer,
 } from "@/components/unlumen-ui/sidebar-001";
 import { nce2List, nce3List, nce4List, ieltsList } from "@/app/mock";
 
