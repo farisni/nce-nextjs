@@ -624,7 +624,7 @@ function ArticleReader({ article }: { article: Article }) {
                           ref={(element) => {
                             paragraphRefs.current[index] = element;
                           }}
-                          className="text-[1.15rem] leading-[2] text-foreground [text-indent:2em]"
+                          className="text-[1.15rem] leading-[2] text-foreground [text-indent:2em] article-text"
                         >
                           {renderHighlightedText(
                             paragraph,
@@ -635,7 +635,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {isIelts && articleParagraphTranslations[index] ? (
                           <p
                             data-selection-offset-excluded="true"
-                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal"
+                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
                           >
                             {articleParagraphTranslations[index]}
                           </p>
@@ -660,7 +660,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
                           <p
                             key={i}
-                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal"
+                            className="text-[0.85rem] leading-8 text-muted-foreground [text-indent:2em] font-normal article-text"
                           >
                             {trans}
                           </p>

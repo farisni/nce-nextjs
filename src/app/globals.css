@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "LXGW WenKai";
+  src: url("https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/lxgwwenkai-regular.woff2") format("woff2");
+  font-display: swap;
+}
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -170,8 +176,8 @@
 .article-notes { margin-bottom: 24px; }
 .note-item { margin-bottom: 8px; font-size: 0.85rem; line-height: 1.7; }
 .note-index { font-size: 0.85rem; font-weight: 400; color: #aaa; margin-right: 6px; }
-.note-label { display: inline-block; padding: 2px 8px; font-size: 0.85rem; font-weight: 400; color: #37352f; border-radius: 6px; margin-right: 8px; }
-.note-body { color: #666; }
+.note-label { display: inline-block; padding: 2px 8px; font-size: 0.85rem; font-weight: 400; color: #37352f; border-radius: 6px; margin-right: 8px; font-family: "LXGW WenKai", "PingFang SC", "Microsoft YaHei", serif; }
+.note-body { color: #666; font-family: "LXGW WenKai", "PingFang SC", "Microsoft YaHei", serif; }
 .section-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 20px; padding-top: 28px; }
 
 .note-item:nth-child(7n+1) .note-label { background: var(--tone-1); background: #ede8e3; }
@@ -196,3 +202,6 @@
 
 
 
+
+/* ─── LXGW WenKai for Chinese text ──────────────────────────────────────── */
+.article-text { font-family: "LXGW WenKai", "PingFang SC", "Microsoft YaHei", serif; }
