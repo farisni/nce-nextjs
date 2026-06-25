@@ -68,7 +68,7 @@ export function AppSidebar() {
         </div>
       </Sidebar001Header>
 
-      <Sidebar001Content>
+      <Sidebar001Content className="sidebar-no-chevron">
         {navGroups.map((group) => (
           <Sidebar001Group
             key={group.label}
