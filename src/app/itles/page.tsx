@@ -64,7 +64,7 @@ type GrammarSummaryNote = {
 type GrammarSummaryGroup = {
   key: string;
   paragraphIndex: number;
-  tone: 1 | 2 | 3 | 4 | 5;
+  tone: 1 | 2 | 3 | 4 | 5 | 6 | 7;
   notes: GrammarSummaryNote[];
 };
 
@@ -107,6 +107,8 @@ const GRAMMAR_TONE_STYLES: Record<GrammarSummaryGroup["tone"], GrammarToneStyle>
   3: { "--grammar-mark-color": "var(--tone-3-strong)", "--grammar-title-bg": "var(--tone-3)" },
   4: { "--grammar-mark-color": "var(--tone-4-strong)", "--grammar-title-bg": "var(--tone-4)" },
   5: { "--grammar-mark-color": "var(--tone-5-strong)", "--grammar-title-bg": "var(--tone-5)" },
+  6: { "--grammar-mark-color": "var(--tone-6-strong)", "--grammar-title-bg": "var(--tone-6)" },
+  7: { "--grammar-mark-color": "var(--tone-7-strong)", "--grammar-title-bg": "var(--tone-7)" },
 };
 
 const AI_INPUT_WIDTH = 360;
