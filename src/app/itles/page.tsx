@@ -635,7 +635,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {isIelts && articleParagraphTranslations[index] ? (
                           <p
                             data-selection-offset-excluded="true"
-                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em] font-light"
                           >
                             {articleParagraphTranslations[index]}
                           </p>
@@ -660,7 +660,7 @@ function ArticleReader({ article }: { article: Article }) {
                         {articleParagraphTranslations.filter(Boolean).map((trans, i) => (
                           <p
                             key={i}
-                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em]"
+                            className="text-[0.95rem] leading-8 text-muted-foreground [text-indent:2em] font-light"
                           >
                             {trans}
                           </p>
