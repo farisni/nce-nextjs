@@ -196,4 +196,4 @@
 
 
 
-.sidebar-no-chevron button > svg:first-child { display: none; }
+.sidebar-no-chevron button > svg { display: none; }
