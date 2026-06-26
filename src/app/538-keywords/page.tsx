@@ -17,7 +17,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { GooeyInput } from "@/components/ui/gooey-input";
+import { InputGroup, InputField } from "@/components/ui/input-group";
 import { cn } from "@/lib/utils";
 import { Ellipsis } from "lucide-react";
 
@@ -211,8 +211,10 @@ export default function KeywordsPage() {
     <LearningLayout>
       <section className="min-w-0 flex-[7]">
         <div className="mb-6 flex items-center gap-3">
-          <h1 className="text-3xl font-bold">538 考点词</h1>
-          <GooeyInput value={searchQuery} onValueChange={setSearchQuery} placeholder="Search..." collapsedWidth={115} expandedWidth={160} expandedOffset={40} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
+          <h1 className="text-2xl font-bold">538 考点词</h1>
+          <InputGroup className="w-44">
+          <InputField label="" placeholder="Search..." icon={Search} value={searchQuery} onChange={setSearchQuery} index={0} className="[&_input]:text-xs [&_svg]:size-3.5 [&>div]:py-1.5 [&>div]:px-2.5" />
+          </InputGroup>
         </div>
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">

@@ -31,7 +31,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { GooeyInput } from "@/components/ui/gooey-input";
+import { InputGroup, InputField } from "@/components/ui/input-group";
 
 const INDEX_COLUMN_CLASS = "sticky left-0 z-30 w-14 bg-background pl-3 before:absolute before:-inset-y-px before:left-0 before:w-1 before:bg-[var(--vocab-row-color)] before:content-[''] group-hover:bg-muted";
 const WORD_COLUMN_CLASS = "sticky left-14 z-30 w-36 bg-background group-hover:bg-muted";
@@ -222,8 +222,10 @@ export default function VocabularyPage() {
     <LearningLayout>
       <section className="min-w-0 flex-[7]">
         <div className="mb-6 flex items-center gap-3">
-          <h1 className="text-3xl font-bold">雅思词汇真经</h1>
-          <GooeyInput value={searchQuery} onValueChange={setSearchQuery} placeholder="Search..." collapsedWidth={115} expandedWidth={160} expandedOffset={40} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
+          <h1 className="text-2xl font-bold">雅思词汇真经</h1>
+          <InputGroup className="w-44">
+          <InputField label="" placeholder="Search..." icon={Search} value={searchQuery} onChange={setSearchQuery} index={0} className="[&_input]:text-xs [&_svg]:size-3.5 [&>div]:py-1.5 [&>div]:px-2.5" />
+          </InputGroup>
         </div>
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">

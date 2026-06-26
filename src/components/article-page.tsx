@@ -61,7 +61,7 @@ import {
 } from "@/components/ui/context-menu";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
-import { GooeyInput } from "@/components/ui/gooey-input";
+import { InputGroup, InputField } from "@/components/ui/input-group";
 import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
 import { ThinkingIndicator } from "@/components/ui/thinking-indicator";
@@ -367,7 +367,14 @@ export function ArticlePage({ defaultLevel, searchParams }: ArticlePageProps) {
 }
 
 function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
-  const articles = LEVEL_LISTS[defaultLevel] ?? getArticleList(allArticles);
+  const [articleSearch, setArticleSearch] = useState("");
+  const allArticlesList = LEVEL_LISTS[defaultLevel] ?? getArticleList(allArticles);
+  const articles = articleSearch.trim()
+    ? allArticlesList.filter((a) => {
+        const q = articleSearch.toLowerCase();
+        return a.title.toLowerCase().includes(q) || (a.titleCn ?? "").includes(q);
+      })
+    : allArticlesList;
   const levelLabel = LEVEL_LABELS[defaultLevel] ?? "IELTS";
 
   return (
@@ -375,8 +382,10 @@ function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
       <section className="min-w-0 flex-1">
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-6 py-4">
           <div className="flex items-center gap-3 pb-1">
-            <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
-            <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} expandedOffset={40} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
+            <h1 className="text-2xl font-semibold tracking-normal">{levelLabel}</h1>
+            <InputGroup className="w-44">
+              <InputField label="" placeholder="Search..." icon={Search} value={articleSearch} onChange={setArticleSearch} index={0} />
+            </InputGroup>
           </div>
           <Separator className="w-4/5" />
 
