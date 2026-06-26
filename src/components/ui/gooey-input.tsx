@@ -175,7 +175,7 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-foreground text-background shadow-sm ring-1 ring-border/60";
+    "bg-background text-foreground shadow-sm ring-1 ring-border/60";
 
   return (
     <div
@@ -226,10 +226,10 @@ export function GooeyInput({
               disabled={disabled || !isExpanded}
               placeholder={placeholder}
               className={cn(
-                "h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none",
+                "h-full min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none",
                 isExpanded
-                  ? "placeholder:text-background/50 dark:placeholder:text-background/45"
-                  : "pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70",
+                  ? "placeholder:text-foreground/50 dark:placeholder:text-foreground/45"
+                  : "pointer-events-none placeholder:text-foreground/80 dark:placeholder:text-foreground/70",
                 classNames?.input,
               )}
             />
