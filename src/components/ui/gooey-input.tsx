@@ -175,7 +175,7 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-background text-foreground border border-black/10";
+    "bg-foreground text-background shadow-sm ring-1 ring-border/60";
 
   return (
     <div
@@ -189,7 +189,7 @@ export function GooeyInput({
 
       <div
         className={cn(
-          "relative flex h-10 items-center justify-center border border-black/30",
+          "relative flex h-10 items-center justify-center",
           classNames?.filterWrap,
         )}
         style={{ filter: `url(#${filterId})` }}
@@ -226,10 +226,10 @@ export function GooeyInput({
               disabled={disabled || !isExpanded}
               placeholder={placeholder}
               className={cn(
-                "h-full min-w-0 flex-1 bg-transparent text-sm text-foreground outline-none",
+                "h-full min-w-0 flex-1 bg-transparent text-sm text-background outline-none",
                 isExpanded
-                  ? "placeholder:text-foreground/50 dark:placeholder:text-foreground/45"
-                  : "pointer-events-none placeholder:text-foreground/80 dark:placeholder:text-foreground/70",
+                  ? "placeholder:text-background/50 dark:placeholder:text-background/45"
+                  : "pointer-events-none placeholder:text-background/80 dark:placeholder:text-background/70",
                 classNames?.input,
               )}
             />

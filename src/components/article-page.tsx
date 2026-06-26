@@ -376,7 +376,7 @@ function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
         <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-6 py-4">
           <div className="flex items-center gap-3 pb-1">
             <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
-            <GooeyInput placeholder="Search..." collapsedWidth={130} expandedWidth={180} classNames={{ trigger: "h-9 text-xs", filterWrap: "h-9", buttonRow: "h-9", bubble: "size-9", bubbleSurface: "size-9 [&>svg]:size-3.5" }} />
+            <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
           </div>
           <Separator className="w-4/5" />
 

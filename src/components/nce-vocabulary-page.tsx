@@ -319,7 +319,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
     <LearningLayout>
       <section className="min-w-0 flex-[7]">
         <div className="mb-6 flex items-center gap-3">
-          <h1 className="text-2xl font-bold">{title}</h1>
+          <h1 className="text-3xl font-bold">{title}</h1>
           <GooeyInput
             value={searchQuery}
             onValueChange={(value) => {
@@ -327,9 +327,9 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
               setExpandedWordId(null);
             }}
             placeholder="Search..."
-            collapsedWidth={130}
-            expandedWidth={180}
-            classNames={{ trigger: "h-9 text-xs", filterWrap: "h-9", buttonRow: "h-9", bubble: "size-9", bubbleSurface: "size-9 [&>svg]:size-3.5" }}
+            collapsedWidth={115}
+            expandedWidth={160}
+            classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }}
           />
         </div>
 
