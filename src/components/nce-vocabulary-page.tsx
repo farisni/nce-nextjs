@@ -328,7 +328,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
             }}
             placeholder="Search..."
             collapsedWidth={115}
-            expandedWidth={160}
+            expandedWidth={160} expandedOffset={40}
             classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }}
           />
         </div>

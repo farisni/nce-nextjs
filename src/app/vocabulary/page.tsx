@@ -223,7 +223,7 @@ export default function VocabularyPage() {
       <section className="min-w-0 flex-[7]">
         <div className="mb-6 flex items-center gap-3">
           <h1 className="text-3xl font-bold">雅思词汇真经</h1>
-          <GooeyInput value={searchQuery} onValueChange={setSearchQuery} placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
+          <GooeyInput value={searchQuery} onValueChange={setSearchQuery} placeholder="Search..." collapsedWidth={115} expandedWidth={160} expandedOffset={40} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
         </div>
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">
