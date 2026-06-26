@@ -279,12 +279,12 @@ function SimilarCard({ title, items, color, max = 8 }: { title: string; items: S
   if (items.length === 0) return null;
   return (
     <div className="rounded-md bg-background/70 p-3">
-      <Badge variant="dot" size="sm" color={color as "blue" | undefined} className="mb-2">{title}</Badge>
+      <Badge variant="solid" size="sm" color={color as "blue" | undefined} className="mb-2">{title}</Badge>
       <div className="flex flex-wrap gap-1">
         {items.slice(0, max).map((item, i) => (
           <span
             key={`${item.word}-${i}`}
-            className="inline-flex items-center rounded-md border border-border/50 bg-background px-1.5 py-0.5 text-[11px] leading-tight text-foreground/80"
+            className="inline-flex items-center rounded-md bg-background px-1.5 py-0.5 text-xs leading-tight text-foreground/80"
             title={item.reason ?? item.meaning ?? ""}
           >
             {item.word}
