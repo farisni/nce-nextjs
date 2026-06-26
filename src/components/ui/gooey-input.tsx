@@ -175,7 +175,7 @@ export function GooeyInput({
   }, [searchText, setExpanded]);
 
   const surfaceClass =
-    "bg-background text-foreground shadow-sm ring-1 ring-border/60";
+    "bg-background text-foreground border border-black/10";
 
   return (
     <div
@@ -189,7 +189,7 @@ export function GooeyInput({
 
       <div
         className={cn(
-          "relative flex h-10 items-center justify-center",
+          "relative flex h-10 items-center justify-center border border-black/30",
           classNames?.filterWrap,
         )}
         style={{ filter: `url(#${filterId})` }}
