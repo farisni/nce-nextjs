@@ -138,7 +138,7 @@ export function AppSidebar() {
     <Sidebar001 defaultWidth={210} minWidth={170} maxWidth={290} className="lg:sticky lg:top-6 lg:h-[calc(100svh-3rem)] lg:self-start">
       <Sidebar001Header className="flex items-center justify-between gap-4 px-0 pb-2 pt-0">
         <div className="flex -translate-y-1 items-center gap-2">
-          <span className="text-2xl font-bold">NCE BOOK</span>
+          <span className="text-2xl font-bold invisible">NCE BOOK</span>
         </div>
       </Sidebar001Header>
 

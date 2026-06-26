@@ -1,25 +1,18 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Check, ChevronsUpDown, Ellipsis } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 
 import { type Article, type VocabItem } from "@/app/mock";
 import { LearningLayout } from "@/components/learning-layout";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
 import { GooeyInput } from "@/components/ui/gooey-input";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import {
   Table,
   TableBody,
@@ -342,71 +335,27 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">
           <p className="text-sm text-muted-foreground">{wordCountText}</p>
-          <Popover
-            open={isLessonSelectOpen}
-            onOpenChange={(open) => {
-              setIsLessonSelectOpen(open);
-
-              if (!open) {
-                setLessonQuery("");
-              }
-            }}
-          >
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                aria-expanded={isLessonSelectOpen}
-                className="ml-auto w-[240px] justify-between"
-              >
-                <span className="truncate">{selectedArticleLabel}</span>
-                <ChevronsUpDown className="ml-2 size-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[240px] p-0">
-              <Command>
-                {articleOptions.length > 10 ? (
-                  <CommandInput
-                    value={lessonQuery}
-                    onValueChange={setLessonQuery}
-                    placeholder="搜索课文..."
-                  />
-                ) : null}
-                <CommandList className="max-h-[330px]">
-                  <CommandEmpty>未找到</CommandEmpty>
-                  <CommandGroup>
-                    <CommandItem
-                      value="全部课文 all lessons"
-                      onSelect={() => {
-                        setSelectedArticleId(ALL_LESSONS_VALUE);
-                        setExpandedWordId(null);
-                        setLessonQuery("");
-                        setIsLessonSelectOpen(false);
-                      }}
-                    >
-                      <Check className={cn("mr-2 size-4", selectedArticleId === ALL_LESSONS_VALUE ? "opacity-100" : "opacity-0")} />
-                      全部课文
-                    </CommandItem>
-                    {visibleArticleOptions.map((article) => (
-                      <CommandItem
-                        key={article.id}
-                        value={`L${article.lesson} ${article.title} ${article.titleCn ?? ""}`}
-                        onSelect={() => {
-                          setSelectedArticleId(article.id);
-                          setExpandedWordId(null);
-                          setLessonQuery("");
-                          setIsLessonSelectOpen(false);
-                        }}
-                      >
-                        <Check className={cn("mr-2 size-4", selectedArticleId === article.id ? "opacity-100" : "opacity-0")} />
-                        L{article.lesson} {article.title}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+          <div className="ml-auto w-[240px]">
+            <Select
+              value={selectedArticleId}
+              onValueChange={(v) => {
+                setSelectedArticleId(v);
+                setExpandedWordId(null);
+              }}
+            >
+              <SelectTrigger placeholder="选择课文..." />
+              <SelectContent className="max-h-[330px]">
+                <SelectGroup>
+                  <SelectItem value={ALL_LESSONS_VALUE} index={0}>全部课文</SelectItem>
+                  {articleOptions.map((article, idx) => (
+                    <SelectItem key={article.id} value={article.id} index={idx + 1}>
+                      L{article.lesson} {article.title}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
 
         <div className={TABLE_SHELL_CLASS}>
