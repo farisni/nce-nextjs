@@ -1,7 +1,9 @@
 "use client";
 
+import { useTheme } from "next-themes";
+import { useState, useEffect } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { BookOpen, BookMarked, Library, Globe } from "lucide-react";
+import { Moon, Sun, BookOpen, BookMarked, Library, Globe } from "lucide-react";
 import {
   Sidebar001,
   Sidebar001Header,
@@ -179,8 +181,32 @@ export function AppSidebar() {
           );
         })}
       </Sidebar001Content>
-
-
-    </Sidebar001>
+          <div className="w-full"><ThemeToggle /></div>
+        </Sidebar001>
   );
 }
+
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  const isDark = theme === "dark";
+
+  if (!mounted) return <div className="h-9" />;
+
+  return (
+    <button
+      onClick={() => setTheme(isDark ? "light" : "dark")}
+      className="flex items-center gap-2 px-3 py-3 text-sm text-muted-foreground transition-colors w-full justify-start"
+    >
+      <div className={`relative h-5 w-9 rounded-full transition-colors ${isDark ? "bg-primary" : "bg-muted-foreground/30"}`}>
+        <div className={`absolute top-0.5 h-4 w-4 rounded-full bg-background shadow-sm transition-transform ${isDark ? "translate-x-[18px]" : "translate-x-0.5"}`}>
+          {isDark ? <Moon className="size-2.5 m-[3px] text-primary" /> : <Sun className="size-2.5 m-[3px] text-yellow-500" />}
+        </div>
+      </div>
+      <span>{isDark ? "Dark" : "Light"}</span>
+    </button>
+  );
+}
+
