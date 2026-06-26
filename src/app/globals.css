@@ -309,3 +309,21 @@
   --vocab-color-4: #9b51e0;
   --vocab-color-5: #219653;
 }
+
+/* Hide scrollbar */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* fluidfunctionalism select hover/active backgrounds */
+.bg-hover {
+  background: hsl(var(--muted));
+}
+.bg-active {
+  background: hsl(var(--accent));
+}
+

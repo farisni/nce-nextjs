@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { Ellipsis } from "lucide-react";
+import { BookOpen, Ellipsis } from "lucide-react";
 
 import { type Article, type VocabItem } from "@/app/mock";
 import { LearningLayout } from "@/components/learning-layout";
@@ -335,7 +335,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">
           <p className="text-sm text-muted-foreground">{wordCountText}</p>
-          <div className="ml-auto w-[240px]">
+          <div className="ml-auto w-[220px]">
             <Select
               value={selectedArticleId}
               onValueChange={(v) => {
@@ -343,13 +343,13 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
                 setExpandedWordId(null);
               }}
             >
-              <SelectTrigger placeholder="选择课文..." />
+              <SelectTrigger icon={BookOpen} placeholder="选择课文..." className="h-10" />
               <SelectContent className="max-h-[330px]">
                 <SelectGroup>
                   <SelectItem value={ALL_LESSONS_VALUE} index={0}>全部课文</SelectItem>
                   {articleOptions.map((article, idx) => (
                     <SelectItem key={article.id} value={article.id} index={idx + 1}>
-                      L{article.lesson} {article.title}
+                      {`L${article.lesson} ${article.title}`}
                     </SelectItem>
                   ))}
                 </SelectGroup>
