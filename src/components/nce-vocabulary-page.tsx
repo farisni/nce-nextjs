@@ -239,9 +239,126 @@ function ExpandButton({ isExpanded, onClick }: { isExpanded: boolean; onClick: (
   );
 }
 
+
+interface SimilarRef {
+  word: string;
+  meaning?: string;
+  reason?: string;
+  file?: string;
+  pronunciation?: string;
+  phrase?: string;
+}
+
+interface RootRef {
+  word: string;
+  meaning: string;
+  file: string;
+  line: number;
+  root_form: string;
+}
+
+function renderSimilarSection(
+  label: string,
+  cnLabel: string,
+  items: SimilarRef[] | Record<string, SimilarRef[]> | undefined,
+  _key: string,
+) {
+  if (!items) return null;
+
+  // Handle dict form (e.g., semantic -> { "538_synonyms": [...] })
+  const entries: Array<{ groupLabel?: string; refs: SimilarRef[] }> = [];
+  if (Array.isArray(items)) {
+    if (items.length === 0) return null;
+    entries.push({ refs: items });
+  } else {
+    for (const [groupLabel, refs] of Object.entries(items)) {
+      if (refs.length > 0) entries.push({ groupLabel, refs });
+    }
+    if (entries.length === 0) return null;
+  }
+
+  return (
+    <div>
+      <p className="text-xs font-medium text-muted-foreground">{cnLabel}</p>
+      <div className="mt-1.5 space-y-1.5">
+        {entries.map((entry, gi) => (
+          <div key={`${_key}-g-${gi}`}>
+            {entry.groupLabel ? (
+              <p className="text-[11px] font-medium text-muted-foreground/70 mb-1">{entry.groupLabel}</p>
+            ) : null}
+            <div className="flex flex-wrap gap-1.5">
+              {entry.refs.slice(0, 6).map((item, i) => (
+                <span
+                  key={`${_key}-${gi}-${i}`}
+                  className="inline-flex items-center rounded-md border border-border/70 bg-background px-2 py-0.5 text-xs text-foreground/80"
+                  title={item.reason ?? item.meaning ?? ""}
+                >
+                  {item.word}
+                  {item.meaning ? <span className="ml-1 text-muted-foreground">{item.meaning}</span> : null}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function renderRootSection(rootAffix: { roots?: Record<string, RootRef[]> } | undefined) {
+  if (!rootAffix?.roots || Object.keys(rootAffix.roots).length === 0) return null;
+  return (
+    <div>
+      <p className="text-xs font-medium text-muted-foreground">词根词缀</p>
+      <div className="mt-1.5 space-y-2">
+        {Object.entries(rootAffix.roots).map(([rootName, entries]) => (
+          <div key={rootName}>
+            <p className="text-[11px] font-medium text-muted-foreground/70 mb-1">{rootName}</p>
+            <div className="flex flex-wrap gap-1.5">
+              {entries.slice(0, 8).map((entry, i) => (
+                <span
+                  key={`root-${rootName}-${i}`}
+                  className="inline-flex items-center rounded-md border border-border/70 bg-background px-2 py-0.5 text-xs text-foreground/80"
+                  title={entry.meaning || ""}
+                >
+                  {entry.word}
+                </span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function ExpandedDetails({ word }: { word: NceVocabularyWord }) {
+  const [similarData, setSimilarData] = useState<Record<string, unknown> | null>(null);
+  const [similarLoading, setSimilarLoading] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    setSimilarLoading(true);
+    setSimilarData(null);
+    fetch(`/api/similar-words?word=${encodeURIComponent(word.word)}`)
+      .then((r) => r.json())
+      .then((data) => {
+        if (!cancelled) {
+          setSimilarData(data);
+          setSimilarLoading(false);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setSimilarLoading(false);
+      });
+    return () => { cancelled = true; };
+  }, [word.word]);
+
+  const sim = (similarData as Record<string, unknown> | null)?.similar as Record<string, unknown> | undefined;
+
   return (
     <div className="max-w-[908px] py-2 text-sm">
+      {/* Sentences */}
       {word.sourceSentences.length ? (
         <div>
           <p className="text-xs font-medium text-muted-foreground">Sentences</p>
@@ -253,6 +370,19 @@ function ExpandedDetails({ word }: { word: NceVocabularyWord }) {
               </div>
             ))}
           </div>
+        </div>
+      ) : null}
+
+      {/* Similar words sections */}
+      {similarLoading ? (
+        <div className="mt-4 text-xs text-muted-foreground animate-pulse">Loading similar words…</div>
+      ) : similarData ? (
+        <div className="mt-4 space-y-4">
+          {renderSimilarSection("Spelling Similar", "拼写相似", sim?.spelling as SimilarRef[] | undefined, "spell")}
+          {renderSimilarSection("Pronunciation Similar", "发音相似", sim?.pronunciation as SimilarRef[] | undefined, "pron")}
+          {renderRootSection(sim?.root_affix as { roots?: Record<string, RootRef[]> } | undefined)}
+          {renderSimilarSection("Semantic", "语义相关", sim?.semantic as SimilarRef[] | Record<string, SimilarRef[]> | undefined, "sem")}
+          {renderSimilarSection("Collocations", "常用搭配", sim?.collocations as SimilarRef[] | undefined, "col")}
         </div>
       ) : null}
     </div>
