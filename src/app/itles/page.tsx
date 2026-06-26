@@ -1,6 +1,5 @@
 "use client";
 
-import { use } from "react";
 import { ArticlePage } from "@/components/article-page";
 
 export default function ItlesPage({

@@ -16,6 +16,7 @@ import {
 } from "react";
 import {
   ArrowLeft,
+  ArrowRight,
   Bot,
   Copy,
   Eraser,
@@ -29,6 +30,7 @@ import {
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { LearningLayout } from "@/components/learning-layout";
 
 import {
   Breadcrumb,
@@ -64,7 +66,6 @@ import { useArticleSettings } from "@/stores/article-settings";
 import FlipClock from "@/components/8starlabs-ui/flip-clock";
 import { ThinkingIndicator } from "@/components/ui/thinking-indicator";
 import { TextHighlight } from "@/components/text-highlight";
-import { BorderBeam } from "@/components/ui/border-beam";
 import { ShineBorder } from "@/components/ui/shine-border";
 
 const LEVEL_ROUTES: Record<string, string> = {
@@ -78,7 +79,7 @@ const LEVEL_LABELS: Record<string, string> = {
   NCE2: "NCE2",
   NCE3: "NCE3",
   NCE4: "NCE4",
-  IELTS16: "ITLES",
+  IELTS16: "IELTS",
 };
 
 const LEVEL_LISTS: Record<string, ArticleListItem[]> = {
@@ -92,7 +93,7 @@ const LEVEL_DEFAULT_ARTICLE: Record<string, string> = {
   NCE2: "nce2-l1",
   NCE3: "nce3-l1",
   NCE4: "nce4-l1",
-  IELTS16: "ielts-c1-t1-p1",
+  IELTS16: "ielts-1",
 };
 
 type GrammarSummaryNote = {
@@ -297,22 +298,6 @@ function readSelection(container: HTMLElement | null): StoredSelection | null {
   };
 }
 
-function mergeHighlights(highlights: HighlightRange[]) {
-  return highlights
-    .toSorted((left, right) => left.start - right.start)
-    .reduce<HighlightRange[]>((merged, range) => {
-      const previous = merged.at(-1);
-
-      if (!previous || range.start > previous.end) {
-        merged.push(range);
-        return merged;
-      }
-
-      previous.end = Math.max(previous.end, range.end);
-      return merged;
-    }, []);
-}
-
 function renderHighlightedText(
   text: string,
   paragraphStart: number,
@@ -378,57 +363,68 @@ export function ArticlePage({ defaultLevel, searchParams }: ArticlePageProps) {
   const selectedArticleId = articleParam;
   const article = allArticles[selectedArticleId] ?? allArticles[defaultArticleId];
 
-  return <ArticleReader article={article} defaultLevel={defaultLevel} />;
+  return <ArticleReader article={article} />;
 }
 
 function IeltsArticleList({ defaultLevel }: { defaultLevel: string }) {
   const articles = LEVEL_LISTS[defaultLevel] ?? getArticleList(allArticles);
-  const levelLabel = LEVEL_LABELS[defaultLevel] ?? "ITLES";
+  const levelLabel = LEVEL_LABELS[defaultLevel] ?? "IELTS";
 
   return (
-    <main className="min-h-svh px-6 py-10">
-      <section className="mx-auto flex w-full max-w-3xl flex-col gap-3">
-        <div className="flex items-center gap-3 pb-1">
-          <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
-          <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
-        </div>
-        <Separator className="w-4/5" />
+    <LearningLayout>
+      <section className="min-w-0 flex-1">
+        <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-6 py-4">
+          <div className="flex items-center gap-3 pb-1">
+            <h1 className="text-3xl font-semibold tracking-normal">{levelLabel}</h1>
+            <GooeyInput placeholder="Search..." collapsedWidth={115} expandedWidth={160} classNames={{ trigger: "h-8 text-xs", filterWrap: "h-8", buttonRow: "h-8", bubble: "size-8", bubbleSurface: "size-8 [&>svg]:size-3.5" }} />
+          </div>
+          <Separator className="w-4/5" />
 
-        <div>
-          {articles.map((article, index) => (
-            <Fragment key={article.id}>
-              {index > 0 && (
-                <Separator className="w-3/5" />
-              )}
-              <Link
-                href={`${LEVEL_ROUTES[article.level] ?? "/itles"}?article=${article.id}`}
-                className="group flex items-start justify-between gap-5 py-1 transition-colors hover:text-primary"
-              >
-                <div className="min-w-0 flex flex-col gap-1">
-                  <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-                    <h2 className="text-base font-medium text-foreground group-hover:text-primary">
-                      {article.title}
-                    </h2>
-                    <span className="text-xs text-muted-foreground">
-                      {article.level} / Lesson {article.lesson}
-                    </span>
+          <div>
+            {articles.map((article, index) => (
+              <Fragment key={article.id}>
+                {index > 0 && (
+                  <Separator className="w-3/5" />
+                )}
+                <Link
+                  href={`${LEVEL_ROUTES[article.level] ?? "/itles"}?article=${article.id}`}
+                  className="group flex items-start justify-between gap-5 py-1 transition-colors hover:text-primary"
+                >
+                  <div className="min-w-0 flex flex-col gap-1">
+                    <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                      <h2 className="text-base font-medium text-foreground group-hover:text-primary">
+                        {article.title}
+                      </h2>
+                      <span className="text-xs text-muted-foreground">
+                        {article.level} / Lesson {article.lesson}
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground">{article.titleCn}</p>
+                    <p className="text-xs text-muted-foreground">
+                      {article.paragraphCount} paragraphs / {article.vocabularyCount} words
+                    </p>
                   </div>
-                  <p className="text-sm text-muted-foreground">{article.titleCn}</p>
-                  <p className="text-xs text-muted-foreground">
-                    {article.paragraphCount} paragraphs / {article.vocabularyCount} words
-                  </p>
-                </div>
-              </Link>
-            </Fragment>
-          ))}
+                </Link>
+              </Fragment>
+            ))}
+          </div>
         </div>
       </section>
-    </main>
+    </LearningLayout>
   );
 }
 
-function ArticleReader({ article, defaultLevel }: { article: Article; defaultLevel: string }) {
+function ArticleReader({ article }: { article: Article }) {
   const isIelts = article.level === "IELTS16";
+  const levelRoute = LEVEL_ROUTES[article.level] ?? "/itles";
+  const articleList = LEVEL_LISTS[article.level] ?? [];
+  const currentArticleIndex = articleList.findIndex((item) => item.id === article.id);
+  const previousArticle = currentArticleIndex > 0
+    ? articleList[currentArticleIndex - 1]
+    : undefined;
+  const nextArticle = currentArticleIndex >= 0 && currentArticleIndex < articleList.length - 1
+    ? articleList[currentArticleIndex + 1]
+    : undefined;
   const articleParagraphs = useMemo(() => getArticleParagraphs(article), [article]);
   const paragraphStarts = useMemo(
     () => buildParagraphStarts(articleParagraphs),
@@ -623,22 +619,41 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
   }
 
   return (
-    <main className="min-h-svh bg-background">
-      <div className="mx-auto flex w-full max-w-[1040px] flex-col gap-6 px-5 py-6 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch">
+    <LearningLayout>
+    <div className="min-w-0 flex-1">
+      <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
           <section className="min-w-0 flex-[7]">
-            <div className="flex items-center justify-between gap-4 pb-4 relative after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-border">
-              <Button variant="outline" size="sm" asChild>
-                <Link href={LEVEL_ROUTES[article.level] ?? "/itles"}>
+            <div className="relative mx-auto flex w-full max-w-[680px] items-center justify-between gap-4 pb-4 after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_6%,var(--border)_94%,transparent)]">
+              {previousArticle ? (
+                <Button variant="outline" size="sm" asChild>
+                  <Link href={`${levelRoute}?article=${previousArticle.id}`}>
+                    <ArrowLeft />
+                    上一课
+                  </Link>
+                </Button>
+              ) : (
+                <Button variant="outline" size="sm" disabled>
                   <ArrowLeft />
-                  Articles
-                </Link>
-              </Button>
-              <Button variant="outline" size="sm" disabled>
-                Lesson {article.lesson}
-              </Button>
+                  上一课
+                </Button>
+              )}
+              <div className="flex items-center gap-2">
+                {nextArticle ? (
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={`${levelRoute}?article=${nextArticle.id}`}>
+                      下一课
+                      <ArrowRight />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button variant="outline" size="sm" disabled>
+                    下一课
+                    <ArrowRight />
+                  </Button>
+                )}
+              </div>
             </div>
-            <header className="mb-6 mt-4 flex flex-col gap-3">
+            <header className="mx-auto mb-6 mt-4 flex w-full max-w-[680px] flex-col gap-3">
               <Breadcrumb>
                 <BreadcrumbList>
                   <BreadcrumbItem>
@@ -665,7 +680,7 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
             <ContextMenu>
               <ContextMenuTrigger asChild>
                 <article
-                  className="selection:bg-primary selection:text-primary-foreground"
+                  className="mx-auto w-full max-w-[680px] selection:bg-primary selection:text-primary-foreground"
                   onContextMenu={syncContextMenu}
                   onMouseUp={syncSelection}
                 >
@@ -796,13 +811,16 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
             </ContextMenu>
           </section>
 
-          <Separator orientation="vertical" className="hidden lg:block bg-[linear-gradient(to_bottom,transparent,var(--border)_15%,var(--border)_85%,transparent)]" />
+          <div className="hidden shrink-0 self-stretch lg:flex lg:items-center">
+            <div className="h-[99%] border-l border-border/80 [mask-image:linear-gradient(to_bottom,transparent,black_6%,black_94%,transparent)]" />
+          </div>
 
-          <aside className="min-w-0 flex-[3] flex flex-col gap-7">
-            <div className="flex justify-start lg:pt-4">
-              <FlipClock size="sm" variant="outline" className="scale-75 origin-top-left ml-2" />
-            </div>
-            <section className="space-y-4 lg:pt-0">
+          <aside className="min-w-0 flex-[3]">
+            <div className="flex w-full max-w-[260px] flex-col gap-7 lg:-ml-3">
+              <div className="flex justify-start lg:pt-4">
+                <FlipClock size="sm" variant="outline" className="scale-75 origin-top-left" />
+              </div>
+              <section className="space-y-4 lg:pt-0">
               <Tabs
                 value={visibleActiveSideTab}
                 onValueChange={(value) => setActiveSideTab(value as "grammar" | "vocabulary")}
@@ -948,15 +966,16 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
                   </TabsContent>
                 </div>
               </Tabs>
-            </section>
+              </section>
 
-            <section className="space-y-2 border-t pt-4 text-sm text-muted-foreground">
-              <p>{lastAction}</p>
-              <p>
-                {highlights.length} highlight{highlights.length === 1 ? "" : "s"} /
-                Notes {showNotes ? "shown" : "hidden"} / {citationStyle.toUpperCase()}
-              </p>
-            </section>
+              <section className="space-y-2 border-t pt-4 text-sm text-muted-foreground">
+                <p>{lastAction}</p>
+                <p>
+                  {highlights.length} highlight{highlights.length === 1 ? "" : "s"} /
+                  Notes {showNotes ? "shown" : "hidden"} / {citationStyle.toUpperCase()}
+                </p>
+              </section>
+            </div>
           </aside>
         </div>
 
@@ -968,18 +987,23 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
           >
             <ShineBorder shineColor={["var(--tone-1-strong)", "var(--tone-3-strong)", "var(--tone-4-strong)"]} borderWidth={2} />
             <div className="relative flex h-full w-full items-center gap-1.5 rounded-full bg-popover px-2.5">
-            <ThinkingIndicator showIcon={false} className="px-0 py-0 gap-1 text-muted-foreground [&>span]:text-xs" />
-            <input
-              value={chatInput}
-              onChange={(event) => setChatInput(event.target.value)}
-              placeholder={
-                chatContext
-                  ? "Ask AI about selection..."
-                  : "Ask AI..."
-              }
-              className="h-full min-w-0 flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
-              aria-label="Ask AI"
-            />
+            <Bot className="size-4 shrink-0 text-muted-foreground/70" aria-hidden="true" />
+            <div className="relative h-full min-w-0 flex-1">
+              {!chatInput ? (
+                <ThinkingIndicator
+                  showIcon={false}
+                  role="presentation"
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 justify-center gap-1 px-0 py-0 text-muted-foreground [&>span]:text-sm"
+                />
+              ) : null}
+              <input
+                value={chatInput}
+                onChange={(event) => setChatInput(event.target.value)}
+                className="h-full w-full bg-transparent text-sm outline-none"
+                aria-label={chatContext ? "Ask AI about selection" : "Ask AI"}
+              />
+            </div>
             <Button
               type="button"
               variant="ghost"
@@ -997,6 +1021,6 @@ function ArticleReader({ article, defaultLevel }: { article: Article; defaultLev
           </form>
         ) : null}
       </div>
-    </main>
+    </LearningLayout>
   );
 }

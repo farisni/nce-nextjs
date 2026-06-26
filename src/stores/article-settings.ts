@@ -36,7 +36,7 @@ function mergeHighlights(highlights: HighlightRange[]) {
 
 export const useArticleSettings = create<ArticleSettingsState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       highlightsByArticleId: {},
       showNotes: true,
       citationStyle: "mla",

@@ -1591,7 +1591,7 @@ const articleNce4L48: Article = {
   original: {
     paragraphs: [
       [
-        { text: "There is no shortage of tipsters around offering 'get-rich-quick' opportunities.", translation: "我们周围不乏情报贩子，向人们提供迅速发财致富的机遇。", predicates: ["is"], clauseIntroducers: [], rubyNotes: [{ title: "no shortage of", body: "双重否定，不缺" }, { title: "offering \'get-rich-quick\'", body: "现在分词做后置定语" }], 
+        { text: "There is no shortage of tipsters around offering 'get-rich-quick' opportunities.", translation: "我们周围不乏情报贩子，向人们提供迅速发财致富的机遇。", predicates: ["is"], clauseIntroducers: [], rubyNotes: [{ title: "no shortage of", body: "双重否定，不缺" }, { title: "offering \'get-rich-quick\'", body: "现在分词做后置定语" }],
         panelNotes: [{ title: "no shortage of", body: "双重否定，不缺，翻译时常当作动词处理" }, { title: "tipster", body: "情报贩子" }, { title: "around", body: "这里是副词, 在周围" }, { title: "offering  'get-rich-quick' opportunities", body: "提供, 现在分词做后置定语" }],
         structureNotes:[{ title: "offering \'get-rich-quick\'", body: "现在分词做后置定语" },{ title: "around", body: "这里是副词, 在周围" }]
       },
@@ -1601,12 +1601,12 @@ const articleNce4L48: Article = {
       ],
       [
         { text: "Well, if you go to five reputable stock brokers and ask them what you should do with your money, you're likely to get five different answers, — even if you give all the relevant information about your age, family, finances and what you want from your investments.", translation: "如果你去向5位有威望的股票经纪人咨询，询问你应该如何使用你的资金，你可能得到5种不同的答复，即便你提供了有关于你的年龄、家庭、财源和你想从投资中获得好处的信息。",
-          predicates: ["go", "ask", "should do", "you're likely to get", "give", "want"], 
-          clauseIntroducers: ["if", "what", "even if","and", "what"], 
-          rubyNotes: [{ title: "if you go to", body: "if引导条件状语" }, 
-                { title: "you should do with your money", body: "what 引导宾语从句" }], 
+              predicates: ["go", "ask", "should do", "you're likely to get", "give", "want"],
+              clauseIntroducers: ["if", "what", "even if","and", "what"],
+              rubyNotes: [{ title: "if you go to", body: "if引导条件状语" },
+                { title: "you should do with your money", body: "what 引导宾语从句" }],
           panelNotes: [{ title: "if you go to five reputable stock brokers", body: "条件状语从句，主句是 you're likely to get five different answers。" },
-                       { title: "reputable stock brokers", body: "有声望的股票经纪人。" }, { title: "ask them what you should do with your money", body: "ask 后接宾语 them，再接 what 引导的宾语从句。" }, 
+                       { title: "reputable stock brokers", body: "有声望的股票经纪人。" }, { title: "ask them what you should do with your money", body: "ask 后接宾语 them，再接 what 引导的宾语从句。" },
                        { title: "what you should do with your money", body: "what 在从句中作 do 的宾语；do with 表示处理、处置。" }],
                       structureNotes:[{title: "you should do with your money", body: "what 引导宾语从句" },{ title: "what you should do with your money", body: "what 在从句中作 do 的宾语；do with 表示处理、处置。" }]
                       },

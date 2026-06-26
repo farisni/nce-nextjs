@@ -302,15 +302,10 @@ export function Sidebar001Group({
   className,
   showChevron = true,
 }: Sidebar001GroupProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(defaultOpen);
   const id = useId();
   const { setHovered, containerRef } = useContext(HoverContext);
   const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    setIsOpen(defaultOpen);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const handleMouseEnter = useCallback(() => {
     const el = buttonRef.current;
@@ -419,18 +414,20 @@ export function Sidebar001Section({
 export function Sidebar001Content({
   children,
   className,
+  contentClassName,
 }: {
   children: React.ReactNode;
   className?: string;
+  contentClassName?: string;
 }) {
-  const containerRef = useContext(HoverContext).containerRef;
+  const { containerRef: containerElementRef } = useContext(HoverContext);
 
   return (
     <div
       className={cn("flex-1 overflow-y-auto pb-4 no-scrollbar", className)}
       data-scroll-viewport
     >
-      <div ref={containerRef} className="relative px-1">
+      <div ref={containerElementRef} className={cn("relative px-1", contentClassName)}>
         <HoverHighlight />
         {children}
       </div>

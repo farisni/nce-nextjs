@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useMemo, useState } from "react";
 import rough from "roughjs";
 
 interface TextHighlightProps {
@@ -10,7 +10,27 @@ interface TextHighlightProps {
     iterations?: number;
 }
 
-function getRoughOptions(seed: number): any {
+type RoughOp = {
+    op?: string;
+    data?: number[];
+};
+
+type RoughSet = {
+    type?: string;
+    ops?: RoughOp[];
+};
+
+type RoughDrawing = {
+    sets?: RoughSet[];
+};
+
+function hashText(value: string) {
+    return value.split("").reduce((hash, char) => {
+        return (hash * 31 + char.charCodeAt(0)) >>> 0;
+    }, 17);
+}
+
+function getRoughOptions(seed: number) {
     return {
         maxRandomnessOffset: 2.6,
         roughness: 1.2,
@@ -21,12 +41,12 @@ function getRoughOptions(seed: number): any {
     };
 }
 
-function opsToPath(drawing: any): string | null {
+function opsToPath(drawing: RoughDrawing): string | null {
     const sets = drawing.sets || [];
-    return sets.map((s: any) => {
+    return sets.map((s) => {
         if (s.type === "path") {
-            return (s.ops || []).map((op: any) => {
-                const d = op.data;
+            return (s.ops || []).map((op) => {
+                const d = op.data ?? [];
                 if (op.op === "move") return `M${d[0]} ${d[1]}`;
                 if (op.op === "bcurveTo") return `C${d[0]} ${d[1]},${d[2]} ${d[3]},${d[4]} ${d[5]}`;
                 if (op.op === "lineTo") return `L${d[0]} ${d[1]}`;
@@ -44,7 +64,7 @@ export function TextHighlight({
     iterations = 2,
 }: TextHighlightProps) {
     const containerRef = useRef<HTMLSpanElement>(null);
-    const seedRef = useRef(Date.now());
+    const seed = useMemo(() => hashText(String(children)), [children]);
     const [svgData, setSvgData] = useState<{ width: number; height: number }>({ width: 0, height: 0 });
 
     useEffect(() => {
@@ -64,22 +84,28 @@ export function TextHighlight({
     }, [children]);
 
     const { width, height } = svgData;
-    const lineY = height - 5;
-    const paths: { d: string; len: number }[] = [];
+    const paths = useMemo(() => {
+        if (width <= 0) {
+            return [];
+        }
 
-    if (width > 0) {
+        const lineY = height - 5;
+        const nextPaths: { d: string; len: number }[] = [];
         const gen = rough.generator(undefined);
+
         for (let i = 0; i < iterations; i++) {
-            const opts = getRoughOptions(seedRef.current + i * 100);
+            const opts = getRoughOptions(seed + i * 100);
             const x1 = i % 2 === 0 ? 2 : width - 2;
             const x2 = i % 2 === 0 ? width - 2 : 2;
-            const drawing = gen.line(x1, lineY, x2, lineY, opts);
+            const drawing = gen.line(x1, lineY, x2, lineY, opts) as RoughDrawing;
             const d = opsToPath(drawing);
             if (d) {
-                paths.push({ d, len: width * 0.8 });
+                nextPaths.push({ d, len: width * 0.8 });
             }
         }
-    }
+
+        return nextPaths;
+    }, [height, iterations, seed, width]);
 
     const keyframesStyle = `@keyframes rough-dash { to { stroke-dashoffset: 0; } }`;
 

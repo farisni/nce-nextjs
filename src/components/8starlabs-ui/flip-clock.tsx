@@ -57,13 +57,15 @@ const FlipUnit: FC<FlipUnitProps> = memo(function FlipUnit({
 
   useEffect(() => {
     if (digit !== prevDigit) {
-      setFlipping(true);
-      // Wait for the full animation (0.3s top + 0.3s bottom) before resetting
+      const frame = requestAnimationFrame(() => setFlipping(true));
       const timer = setTimeout(() => {
         setFlipping(false);
         setPrevDigit(digit);
-      }, 550); // Slightly less than 600ms to ensure smoothness
-      return () => clearTimeout(timer);
+      }, 550);
+      return () => {
+        cancelAnimationFrame(frame);
+        clearTimeout(timer);
+      };
     }
   }, [digit, prevDigit]);
 
@@ -172,6 +174,13 @@ interface TimeLeft {
   seconds: number;
 }
 
+const INITIAL_TIME: TimeLeft = {
+  days: 0,
+  hours: 0,
+  minutes: 0,
+  seconds: 0
+};
+
 type FlipClockSize = NonNullable<
   VariantProps<typeof flipClockVariants>["size"]
 >;
@@ -181,13 +190,6 @@ const heightMap: Record<FlipClockSize, string> = {
   md: "text-5xl",
   lg: "text-6xl",
   xl: "text-8xl"
-};
-
-const EMPTY_TIME: TimeLeft = {
-  days: 0,
-  hours: 0,
-  minutes: 0,
-  seconds: 0
 };
 
 function ClockSeparator({ size }: { size?: FlipClockSize }) {
@@ -212,16 +214,14 @@ export default function FlipClock({
   className,
   ...props
 }: FlipClockProps) {
-  const [time, setTime] = useState<TimeLeft>(EMPTY_TIME);
+  const [time, setTime] = useState<TimeLeft>(INITIAL_TIME);
 
   useEffect(() => {
-    setTime(getTime(countdown, targetDate));
+    const frame = requestAnimationFrame(() => setTime(getTime(countdown, targetDate)));
 
-    // Run a faster heartbeat (250ms) to catch the second rollover immediately
     const timer = setInterval(() => {
       const nextTime = getTime(countdown, targetDate);
 
-      // Only update state if the seconds actually changed to prevent unnecessary re-renders
       setTime((prev) => {
         if (
           prev.seconds === nextTime.seconds &&
@@ -231,9 +231,12 @@ export default function FlipClock({
         }
         return nextTime;
       });
-    }, 250); // 4fps check is plenty
+    }, 250);
 
-    return () => clearInterval(timer);
+    return () => {
+      cancelAnimationFrame(frame);
+      clearInterval(timer);
+    };
   }, [countdown, targetDate]);
 
   const daysStr = String(time.days).padStart(3, "0");
