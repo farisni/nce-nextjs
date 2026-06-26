@@ -5,7 +5,8 @@ import { BookOpen, Ellipsis, Search } from "lucide-react";
 
 import { type Article, type VocabItem } from "@/app/mock";
 import { LearningLayout } from "@/components/learning-layout";
-import { InputGroup, InputField } from "@/components/ui/input-group";
+import { InputGroup, InputField } from "@/components/ui/input-group"
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
@@ -274,11 +275,11 @@ function flattenRoots(rootAffix: { roots?: Record<string, RootRef[]> } | undefin
   }));
 }
 
-function SimilarCard({ title, items, max = 8 }: { title: string; items: SimilarRef[]; max?: number }) {
+function SimilarCard({ title, items, color, max = 8 }: { title: string; items: SimilarRef[]; color?: string; max?: number }) {
   if (items.length === 0) return null;
   return (
     <div className="rounded-md bg-background/70 p-3">
-      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-muted-foreground">{title}</p>
+      <Badge variant="dot" size="sm" color={color as "blue" | undefined} className="mb-2">{title}</Badge>
       <div className="flex flex-wrap gap-1">
         {items.slice(0, max).map((item, i) => (
           <span
@@ -306,11 +307,11 @@ function SimilarWordsGrid({ sim }: { sim: Record<string, unknown> | undefined })
   const coll = flattenSimilar(sim.collocations as SimilarRef[] | Record<string, SimilarRef[]> | undefined);
 
   const cards = [
-    { title: "拼写相似", items: spelling },
-    { title: "发音相似", items: pron },
-    { title: "词根词缀", items: roots },
-    { title: "语义相关", items: semantic },
-    { title: "常用搭配", items: coll },
+    { title: "拼写相似", items: spelling, color: "blue" },
+    { title: "发音相似", items: pron, color: "violet" },
+    { title: "词根词缀", items: roots, color: "emerald" },
+    { title: "语义相关", items: semantic, color: "amber" },
+    { title: "常用搭配", items: coll, color: "pink" },
   ].filter((c) => c.items.length > 0);
 
   if (cards.length === 0) return null;
@@ -318,7 +319,7 @@ function SimilarWordsGrid({ sim }: { sim: Record<string, unknown> | undefined })
   return (
     <div className="mt-4 grid grid-cols-3 gap-3">
       {cards.map((card) => (
-        <SimilarCard key={card.title} title={card.title} items={card.items} />
+        <SimilarCard key={card.title} title={card.title} items={card.items} color={card.color} />
       ))}
     </div>
   );
@@ -438,7 +439,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
   return (
     <LearningLayout>
       <section className="min-w-0 flex-[7]">
-        <div className="mb-6 flex items-center gap-3">
+        <div className="mb-6 flex items-center gap-2">
           <h1 className="text-2xl font-bold">{title}</h1>
           <InputGroup className="w-44">
             <InputField
@@ -466,7 +467,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
                 setExpandedWordId(null);
               }}
             >
-              <SelectTrigger icon={BookOpen} placeholder="选择课文..." className="h-10" />
+              <SelectTrigger variant="borderless" icon={BookOpen} placeholder="选择课文..." className="h-10" />
               <SelectContent className="max-h-[330px]">
                 <SelectGroup>
                   <SelectItem value={ALL_LESSONS_VALUE} index={0}>全部课文</SelectItem>
@@ -483,7 +484,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
 
         <div className={TABLE_SHELL_CLASS}>
           <div aria-hidden="true" className={FIXED_CONTENT_HEADER_CLASS}>Lesson</div>
-          <Table containerClassName={TABLE_CONTAINER_CLASS} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
+          <Table containerClassName={cn(TABLE_CONTAINER_CLASS, expandedWordId && "overflow-x-hidden")} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
           <colgroup>
             <col style={{ width: 56 }} />
             <col style={{ width: 144 }} />
