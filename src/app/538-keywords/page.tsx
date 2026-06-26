@@ -226,8 +226,8 @@ export default function KeywordsPage() {
                 key={cat.title}
                 color={category === cat.title ? "blue" : "gray"}
                 variant="dot"
-                size="md"
-                className="cursor-pointer"
+                size="lg"
+                className="cursor-pointer py-2"
                 onClick={() => setCategory(cat.title)}
               >
                 {cat.title}
