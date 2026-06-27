@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/tooltip";
 import { InputGroup, InputField } from "@/components/ui/input-group";
 import { cn } from "@/lib/utils";
-import { Ellipsis } from "lucide-react";
+import { Ellipsis, Search } from "lucide-react";
 
 const INDEX_COLUMN_CLASS = "sticky left-0 z-30 w-14 bg-background pl-3 group-hover:bg-muted";
 const WORD_COLUMN_CLASS = "sticky left-14 z-30 w-36 bg-background group-hover:bg-muted";

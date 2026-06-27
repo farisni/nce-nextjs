@@ -1,18 +1,24 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { BookOpen, Ellipsis, Search, Shuffle } from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis, Search, Shuffle } from "lucide-react";
 
 import { type Article, type VocabItem } from "@/app/mock";
 import { LearningLayout } from "@/components/learning-layout";
 import { InputGroup, InputField } from "@/components/ui/input-group";
+import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-} from "@/components/ui/select";
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   Table,
   TableBody,
@@ -385,10 +391,9 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
     [articles],
   );
   const [isLessonSelectOpen, setIsLessonSelectOpen] = useState(false);
-  const [selectedArticleId, setSelectedArticleId] = useState(() => {
-    const sorted = Object.values(articles).sort((a, b) => a.lesson - b.lesson);
-    return sorted[Math.floor(Math.random() * sorted.length)]?.id ?? ALL_LESSONS_VALUE;
-  });
+  const [selectedArticleId, setSelectedArticleId] = useState(
+    articleOptions[0]?.id ?? ALL_LESSONS_VALUE,
+  );
   const [lessonQuery, setLessonQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedWordId, setExpandedWordId] = useState<string | null>(null);
@@ -397,19 +402,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
   const selectedArticleLabel = selectedArticle
     ? `L${selectedArticle.lesson} ${selectedArticle.title}`
     : "全部课文";
-  const visibleArticleOptions = useMemo(() => {
-    const normalizedQuery = lessonQuery.trim().toLowerCase();
 
-    if (!normalizedQuery) {
-      return articleOptions.slice(0, 10);
-    }
-
-    return articleOptions.filter((article) =>
-      `l${article.lesson} ${article.title} ${article.titleCn ?? ""}`
-        .toLowerCase()
-        .includes(normalizedQuery),
-    );
-  }, [articleOptions, lessonQuery]);
   const words = useMemo<NceVocabularyWord[]>(
     () => articleOptions.flatMap((article) => article.vocabulary.map((word, index) => ({
       ...word,
@@ -472,27 +465,60 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
             >
               <Shuffle className="size-4" />
             </button>
-            <div className="w-[220px]">
-            <Select
-              value={selectedArticleId}
-              onValueChange={(v) => {
-                setSelectedArticleId(v);
-                setExpandedWordId(null);
-              }}
-            >
-              <SelectTrigger variant="borderless" icon={BookOpen} placeholder="选择课文..." className="h-10" />
-              <SelectContent className="max-h-[330px]">
-                <SelectGroup>
-                  <SelectItem value={ALL_LESSONS_VALUE} index={0}>全部课文</SelectItem>
-                  {articleOptions.map((article, idx) => (
-                    <SelectItem key={article.id} value={article.id} index={idx + 1}>
-                      {`L${article.lesson} ${article.title}`}
-                    </SelectItem>
-                  ))}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-            </div>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  role="combobox"
+                  className="w-[220px] justify-between"
+                >
+                  <span className="truncate">{selectedArticleLabel}</span>
+                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-[220px] p-0">
+                <Command>
+                  <CommandList>
+                    <CommandEmpty>未找到</CommandEmpty>
+                    <CommandGroup>
+                      <CommandItem
+                        value="全部课文"
+                        onSelect={() => {
+                          setSelectedArticleId(ALL_LESSONS_VALUE);
+                          setExpandedWordId(null);
+                        }}
+                      >
+                        <Check
+                          className={cn(
+                            "mr-2 h-4 w-4",
+                            selectedArticleId === ALL_LESSONS_VALUE ? "opacity-100" : "opacity-0"
+                          )}
+                        />
+                        全部课文
+                      </CommandItem>
+                      {articleOptions.map((article) => (
+                        <CommandItem
+                          key={article.id}
+                          value={`L${article.lesson} ${article.title}`}
+                          onSelect={() => {
+                            setSelectedArticleId(article.id);
+                            setExpandedWordId(null);
+                          }}
+                        >
+                          <Check
+                            className={cn(
+                              "mr-2 h-4 w-4",
+                              selectedArticleId === article.id ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          {`L${article.lesson} ${article.title}`}
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </CommandList>
+                </Command>
+              </PopoverContent>
+            </Popover>
           </div>
         </div>
 
