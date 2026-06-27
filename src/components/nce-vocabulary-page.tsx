@@ -1,7 +1,7 @@
 "use client";
 
 import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { BookOpen, Ellipsis, Search } from "lucide-react";
+import { BookOpen, Ellipsis, Search, Shuffle } from "lucide-react";
 
 import { type Article, type VocabItem } from "@/app/mock";
 import { LearningLayout } from "@/components/learning-layout";
@@ -363,7 +363,7 @@ function ExpandedDetails({ word }: { word: NceVocabularyWord }) {
         <div>
           <p className="text-xs font-medium text-muted-foreground">Sentences</p>
           <div className="mt-2 flex flex-col gap-2">
-            {word.sourceSentences.map((sentence, index) => (
+            {word.sourceSentences.slice(0, 1).map((sentence, index) => (
               <div key={`${word.id}-sentence-${index}`} className="rounded-md bg-background/70 p-3">
                 <p className="text-base leading-7 text-foreground">{renderHighlightedSentence(sentence.text, word.word)}</p>
                 <p className="mt-1 leading-6 text-muted-foreground">{sentence.translation}</p>
@@ -385,9 +385,10 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
     [articles],
   );
   const [isLessonSelectOpen, setIsLessonSelectOpen] = useState(false);
-  const [selectedArticleId, setSelectedArticleId] = useState(
-    articleOptions[0]?.id ?? ALL_LESSONS_VALUE,
-  );
+  const [selectedArticleId, setSelectedArticleId] = useState(() => {
+    const sorted = Object.values(articles).sort((a, b) => a.lesson - b.lesson);
+    return sorted[Math.floor(Math.random() * sorted.length)]?.id ?? ALL_LESSONS_VALUE;
+  });
   const [lessonQuery, setLessonQuery] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedWordId, setExpandedWordId] = useState<string | null>(null);
@@ -458,7 +459,20 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
 
         <div className="mb-4 flex max-w-[940px] flex-wrap items-center gap-3">
           <p className="text-sm text-muted-foreground">{wordCountText}</p>
-          <div className="ml-auto w-[220px]">
+          <div className="ml-auto flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                const sorted = Object.values(articles).sort((a, b) => a.lesson - b.lesson);
+                setSelectedArticleId(sorted[Math.floor(Math.random() * sorted.length)]?.id ?? ALL_LESSONS_VALUE);
+                setExpandedWordId(null);
+              }}
+              className="grid size-8 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              title="随机课文"
+            >
+              <Shuffle className="size-4" />
+            </button>
+            <div className="w-[220px]">
             <Select
               value={selectedArticleId}
               onValueChange={(v) => {
@@ -478,6 +492,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
                 </SelectGroup>
               </SelectContent>
             </Select>
+            </div>
           </div>
         </div>
 
