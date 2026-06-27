@@ -20,7 +20,7 @@ export default function RootLayout({
       className="h-full antialiased"
       suppressHydrationWarning
     >
-      <body className="min-h-full min-w-[1480px]" suppressHydrationWarning>
+      <body className="min-h-full" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
         <TooltipProvider>
           <ScrollArea className="h-svh min-w-0 bg-background text-foreground">
