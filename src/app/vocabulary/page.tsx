@@ -16,7 +16,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Check, ChevronsUpDown, Ellipsis, Search } from "lucide-react";
+import { Check, ChevronsUpDown, Ellipsis, Search, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -232,12 +232,21 @@ export default function VocabularyPage() {
           <p className="text-sm text-muted-foreground">
             {wordCountText}
           </p>
-          <Popover>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setChapter(vocabChapters[Math.floor(Math.random() * vocabChapters.length)]?.title ?? "")}
+              className="grid size-8 shrink-0 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              title="随机章节"
+            >
+              <Shuffle className="size-4" />
+            </button>
+            <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
                 role="combobox"
-                className="ml-auto w-[220px] justify-between"
+                className="w-[220px] justify-between"
               >
                 {chapter || "选择章节..."}
                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -268,11 +277,12 @@ export default function VocabularyPage() {
               </Command>
             </PopoverContent>
           </Popover>
+          </div>
         </div>
 
         <div className={TABLE_SHELL_CLASS}>
           <div aria-hidden="true" className={FIXED_CONTENT_HEADER_CLASS}>Example</div>
-          <Table containerClassName={TABLE_CONTAINER_CLASS} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
+          <Table containerClassName={cn(TABLE_CONTAINER_CLASS, expandedWordId && "overflow-x-hidden")} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
           <colgroup>
             <col style={{ width: 56 }} />
             <col style={{ width: 144 }} />
@@ -322,19 +332,10 @@ export default function VocabularyPage() {
                 </TableCell>
               </TableRow>
               {isExpanded ? (
-                <TableRow
-                  className="group transition-none hover:!bg-transparent"
-                  style={{
-                    "--vocab-row-color": `var(--vocab-color-${word.colorIndex})`,
-                  } as CSSProperties}
-                >
-                  <TableCell className={cn(INDEX_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className={cn(WORD_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className={cn(MEANING_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className="relative z-0 whitespace-normal bg-muted/40 text-foreground">
+                <TableRow className="group transition-none hover:!bg-transparent">
+                  <TableCell colSpan={7} className="relative z-50 whitespace-normal bg-muted/40 px-4 py-3 text-foreground">
                     <ExpandedVocabularyDetails word={word} />
                   </TableCell>
-                  <TableCell className={cn(EXPAND_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
                 </TableRow>
               ) : null}
               </Fragment>

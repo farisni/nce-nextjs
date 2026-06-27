@@ -570,7 +570,7 @@ export function NceVocabularyPage({ articles, title }: NceVocabularyPageProps) {
                   </TableRow>
                   {isExpanded ? (
                     <TableRow className="group transition-none hover:!bg-transparent">
-                      <TableCell colSpan={5} className="relative z-30 whitespace-normal bg-muted/40 px-4 py-3 text-foreground">
+                      <TableCell colSpan={5} className="relative z-50 whitespace-normal bg-muted/40 px-4 py-3 text-foreground">
                         <ExpandedDetails word={word} />
                       </TableCell>
                     </TableRow>

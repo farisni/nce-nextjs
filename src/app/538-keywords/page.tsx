@@ -240,7 +240,7 @@ export default function KeywordsPage() {
 
         <div className={TABLE_SHELL_CLASS}>
           <div aria-hidden="true" className={FIXED_CONTENT_HEADER_CLASS}>Synonyms</div>
-          <Table containerClassName={TABLE_CONTAINER_CLASS} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
+          <Table containerClassName={cn(TABLE_CONTAINER_CLASS, expandedWordKey && "overflow-x-hidden")} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
           <colgroup>
             <col style={{ width: 56 }} />
             <col style={{ width: 144 }} />
@@ -292,13 +292,9 @@ export default function KeywordsPage() {
               </TableRow>
               {isExpanded ? (
                 <TableRow className="group transition-none hover:!bg-transparent">
-                  <TableCell className={cn(INDEX_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className={cn(WORD_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className={cn(MEANING_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
-                  <TableCell className="relative z-0 whitespace-normal bg-muted/40 text-foreground">
+                  <TableCell colSpan={5} className="relative z-50 whitespace-normal bg-muted/40 px-4 py-3 text-foreground">
                     <ExpandedKeywordDetails word={word} />
                   </TableCell>
-                  <TableCell className={cn(EXPAND_COLUMN_CLASS, "bg-muted/40 group-hover:bg-muted/40")} />
                 </TableRow>
               ) : null}
               </Fragment>
