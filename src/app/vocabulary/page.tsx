@@ -16,22 +16,19 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Check, ChevronsUpDown, Ellipsis, Search, Shuffle } from "lucide-react";
+import { BookOpen, Ellipsis, Search, Shuffle } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+
+
+
 import { InputGroup, InputField } from "@/components/ui/input-group";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 
 const INDEX_COLUMN_CLASS = "sticky left-0 z-30 w-14 bg-background pl-3 before:absolute before:-inset-y-px before:left-0 before:w-1 before:bg-[var(--vocab-row-color)] before:content-[''] group-hover:bg-muted";
 const WORD_COLUMN_CLASS = "sticky left-14 z-30 w-36 bg-background group-hover:bg-muted";
@@ -241,42 +238,20 @@ export default function VocabularyPage() {
             >
               <Shuffle className="size-4" />
             </button>
-            <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                role="combobox"
-                className="w-[220px] justify-between"
-              >
-                {chapter || "选择章节..."}
-                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-[220px] p-0">
-              <Command>
-                <CommandList>
-                  <CommandEmpty>未找到</CommandEmpty>
-                  <CommandGroup>
-                    {vocabChapters.map((ch) => (
-                      <CommandItem
-                        key={ch.title}
-                        value={ch.title}
-                        onSelect={() => setChapter(ch.title)}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            chapter === ch.title ? "opacity-100" : "opacity-0"
-                          )}
-                        />
+            <div className="w-44">
+              <Select value={chapter} onValueChange={setChapter}>
+                <SelectTrigger variant="borderless" icon={BookOpen} placeholder="选择章节..." className="h-10" />
+                <SelectContent className="max-h-[330px]">
+                  <SelectGroup>
+                    {vocabChapters.map((ch, idx) => (
+                      <SelectItem key={ch.title} value={ch.title} index={idx}>
                         {ch.title}
-                      </CommandItem>
+                      </SelectItem>
                     ))}
-                  </CommandGroup>
-                </CommandList>
-              </Command>
-            </PopoverContent>
-          </Popover>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
         </div>
 
