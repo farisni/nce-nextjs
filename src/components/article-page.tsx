@@ -15,8 +15,6 @@ import {
   useState,
 } from "react";
 import {
-  ArrowLeft,
-  ArrowRight,
   Bot,
   Copy,
   Eraser,
@@ -29,7 +27,7 @@ import {
   X,
 } from "lucide-react";
 
-import { Button } from "@/components/ui/button";
+import { Button19 } from "@/components/ui/button-19";
 import { LearningLayout } from "@/components/learning-layout";
 
 import {
@@ -633,33 +631,13 @@ function ArticleReader({ article }: { article: Article }) {
       <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
           <section className="min-w-0 flex-[7]">
             <div className="relative mx-auto flex w-full max-w-[680px] items-center justify-between gap-4 pb-4 after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_6%,var(--border)_94%,transparent)]">
-              {previousArticle ? (
-                <Button variant="outline" size="sm" asChild>
-                  <Link href={`${levelRoute}?article=${previousArticle.id}`}>
-                    <ArrowLeft />
-                    上一课
-                  </Link>
-                </Button>
-              ) : (
-                <Button variant="outline" size="sm" disabled>
-                  <ArrowLeft />
-                  上一课
-                </Button>
-              )}
+              <Button19 direction="left" href={previousArticle ? `${levelRoute}?article=${previousArticle.id}` : undefined} disabled={!previousArticle}>
+                上一课
+              </Button19>
               <div className="flex items-center gap-2">
-                {nextArticle ? (
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={`${levelRoute}?article=${nextArticle.id}`}>
-                      下一课
-                      <ArrowRight />
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button variant="outline" size="sm" disabled>
-                    下一课
-                    <ArrowRight />
-                  </Button>
-                )}
+                <Button19 direction="right" href={nextArticle ? `${levelRoute}?article=${nextArticle.id}` : undefined} disabled={!nextArticle}>
+                  下一课
+                </Button19>
               </div>
             </div>
             <header className="mx-auto mb-6 mt-4 flex w-full max-w-[680px] flex-col gap-3">

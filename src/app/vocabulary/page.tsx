@@ -232,7 +232,7 @@ export default function VocabularyPage() {
           <p className="text-sm text-muted-foreground">
             {wordCountText}
           </p>
-          <div className="flex items-center gap-2">
+          <div className="ml-auto flex items-center gap-2">
             <button
               type="button"
               onClick={() => setChapter(vocabChapters[Math.floor(Math.random() * vocabChapters.length)]?.title ?? "")}
