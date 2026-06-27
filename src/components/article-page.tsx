@@ -628,7 +628,7 @@ function ArticleReader({ article }: { article: Article }) {
   return (
     <LearningLayout>
     <div className="min-w-0 flex-1">
-      <div className="flex flex-col gap-8 lg:flex-row lg:items-stretch lg:gap-8">
+      <div className="flex flex-row items-stretch gap-8">
           <section className="min-w-0 flex-[7]">
             <div className="relative mx-auto flex w-full max-w-[680px] items-center justify-between gap-4 pb-4 after:absolute after:bottom-0 after:inset-x-0 after:h-px after:bg-[linear-gradient(to_right,transparent,var(--border)_6%,var(--border)_94%,transparent)]">
               <Button19 direction="left" href={previousArticle ? `${levelRoute}?article=${previousArticle.id}` : undefined} disabled={!previousArticle}>
