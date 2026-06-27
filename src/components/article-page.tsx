@@ -894,7 +894,7 @@ function ArticleReader({ article }: { article: Article }) {
                                           <button
                                             type="button"
                                             className={
-                                              "ml-1 inline-flex size-4 translate-y-0.5 cursor-pointer items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent hover:text-foreground " +
+                                              "ml-1 inline-flex size-4 translate-y-0.5 cursor-pointer items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent hover:text-foreground " +
                                               (isMoreActive ? "bg-accent text-foreground" : "")
                                             }
                                             aria-label={isMoreActive ? "Hide related examples" : "Show related examples"}

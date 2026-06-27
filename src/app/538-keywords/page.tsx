@@ -32,7 +32,7 @@ const EXPAND_COLUMN_CLASS = "sticky right-0 z-30 w-12 bg-background text-center 
 const EXPAND_HEADER_CLASS = "sticky right-0 z-40 w-12 bg-background";
 const TABLE_SHELL_CLASS = "relative max-w-[940px]";
 const TABLE_CONTAINER_CLASS = "isolate max-w-[940px] overscroll-x-contain [-ms-overflow-style:none] [scrollbar-width:none] after:pointer-events-none after:absolute after:inset-y-0 after:left-0 after:z-20 after:w-[488px] after:bg-background after:content-[''] [&::-webkit-scrollbar]:hidden";
-const FIXED_CONTENT_HEADER_CLASS = "pointer-events-none absolute left-[488px] right-12 top-0 z-50 flex h-10 items-center border-b border-border/70 bg-background px-2 text-sm font-medium text-foreground";
+const FIXED_CONTENT_HEADER_CLASS = "pointer-events-none absolute left-[488px] right-12 top-0 z-50 flex h-10 items-center border-b border-border/40 bg-background px-2 text-sm font-medium text-foreground";
 
 function normalizeSearchText(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -240,7 +240,7 @@ export default function KeywordsPage() {
 
         <div className={TABLE_SHELL_CLASS}>
           <div aria-hidden="true" className={FIXED_CONTENT_HEADER_CLASS}>Synonyms</div>
-          <Table containerClassName={cn(TABLE_CONTAINER_CLASS, expandedWordKey && "overflow-x-hidden")} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/70 [&_th]:border-b [&_th]:border-border/70 [&_tr:last-child_td]:border-b-0">
+          <Table containerClassName={cn(TABLE_CONTAINER_CLASS, expandedWordKey && "overflow-x-hidden")} className="min-w-[1248px] table-fixed border-separate border-spacing-0 [&_td]:border-b [&_td]:border-border/40 [&_th]:border-b [&_th]:border-border/40 [&_tr:last-child_td]:border-b-0">
           <colgroup>
             <col style={{ width: 56 }} />
             <col style={{ width: 144 }} />
